@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <title>360健身工作室</title>
+    <meta name="description" content="360健身工作室登录页面">
+    <meta name="keywords" content="360健身工作室">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" media="screen" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
 </head>
 <body>
 <script type="text/javascript" size="90" alpha="0.2" zIndex="0" src="js/lizi.js"></script>
 <div id="app">
     <div class="login">
         <div class="login-top">
-            登录
+            360健身工作室
         </div>
         <div class="login-center clearfix">
             <div class="login-center-img"><img src="img/name.png"/></div>
@@ -33,7 +37,7 @@
         <div class="login-button" @click="login">
             登陆
         </div>
-        <div class="login-bottom" v-show="success">用户名或者密码有误</div>
+        <div class="login-bottom" v-show="success" v-text="msg"></div>
     </div>
     <div class="sk-rotating-plane"></div>
 </div>
@@ -73,11 +77,17 @@
                 loginname:'',
                 password:''
             },
-            success:false
+            success:false,
+            msg:''
         },
         methods:{
             login: function () {
                 let _this = this;
+                if(_this.param.loginname=='' || _this.param.password==""){
+                    _this.success = true;
+                    _this.msg = '用户名或密码不能为空';
+                    return;
+                }
                 addClass(document.querySelector(".login"), "active")
                 setTimeout(function () {
                     addClass(document.querySelector(".sk-rotating-plane"), "active")
@@ -95,6 +105,7 @@
                                 removeClass(document.querySelector(".sk-rotating-plane"), "active")
                                 document.querySelector(".login").style.display = "block"
                                 _this.success=true;
+                                _this.msg = '用户名或者密码有误';
                             }
                         }
                     });

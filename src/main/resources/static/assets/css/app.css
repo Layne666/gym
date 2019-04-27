@@ -897,6 +897,9 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
 .font-red {
     color: #e7505a!important;
 }
+.font-blue {
+    color: #3598dc!important;
+}
 
 .bold {
     font-weight: 700!important;

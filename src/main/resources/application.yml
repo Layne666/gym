@@ -1,7 +1,6 @@
 server:
   port: 80
 
-
 spring:
   application:
     name: haiyu
@@ -14,6 +13,9 @@ spring:
     max-active: 20
     test-on-borrow: true
     driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    favicon:
+      enabled: false
 #  thymeleaf:
 #      cache: false
 #      mode: HTML5
