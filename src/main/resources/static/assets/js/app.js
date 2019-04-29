@@ -56,32 +56,6 @@ var pageData = {
     'index': function indexData() {
 
 
-        var myScroll = new IScroll('#wrapper', {
-            scrollbars: true,
-            mouseWheel: true,
-            interactiveScrollbars: true,
-            shrinkScrollbars: 'scale',
-            preventDefault: false,
-            fadeScrollbars: true
-        });
-
-        var myScrollA = new IScroll('#wrapperA', {
-            scrollbars: true,
-            mouseWheel: true,
-            interactiveScrollbars: true,
-            shrinkScrollbars: 'scale',
-            preventDefault: false,
-            fadeScrollbars: true
-        });
-
-        var myScrollB = new IScroll('#wrapperB', {
-            scrollbars: true,
-            mouseWheel: true,
-            interactiveScrollbars: true,
-            shrinkScrollbars: 'scale',
-            preventDefault: false,
-            fadeScrollbars: true
-        });
 
 
 
