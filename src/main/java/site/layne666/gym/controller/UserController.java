@@ -16,13 +16,17 @@ public class UserController {
         return "user";
     }
 
+    @RequestMapping("/add")
+    public String add(){
+        return "user-add";
+    }
     @RequestMapping("/edit")
     public String edit(){
-        return "edit";
+        return "user-edit";
     }
 
     @RequestMapping("/daka")
     public String daka(){
-        return "daka";
+        return "user-daka";
     }
 }
