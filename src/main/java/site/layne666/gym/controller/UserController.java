@@ -15,4 +15,14 @@ public class UserController {
     public String index(){
         return "user";
     }
+
+    @RequestMapping("/edit")
+    public String edit(){
+        return "edit";
+    }
+
+    @RequestMapping("/daka")
+    public String daka(){
+        return "daka";
+    }
 }
