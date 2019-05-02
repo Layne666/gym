@@ -36,7 +36,15 @@ Thymeleaf
 
 ### 主页界面
 
-![主页界面](https://ws1.sinaimg.cn/large/005SN4y5ly1g2ha3xmakej31ew0n3q62.jpg)
+![主页界面](https://ws4.sinaimg.cn/large/005SN4y5ly1g2nfukym6hj31g20n2gom.jpg)
+
+### 个人中心-头像管理
+
+![头像管理](https://ws3.sinaimg.cn/large/005SN4y5ly1g2nfvcwj2xj31fd0kdn1b.jpg)
+
+### 用户管理
+
+![用户管理](https://ws2.sinaimg.cn/large/005SN4y5ly1g2nfwjpsxoj31g30i6dh5.jpg)
 
 # 功能设计
 
