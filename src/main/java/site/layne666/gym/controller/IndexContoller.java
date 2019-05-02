@@ -11,6 +11,8 @@ import site.layne666.gym.pojo.ApiResult;
 import javax.servlet.http.HttpSession;
 
 /**
+ * 主页和登录
+ *
  * @author layne666
  * @date 2019/04/27
  */

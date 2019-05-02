@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
+ * 用户（会员）
+ *
  * @author layne666
  * @date 2019/04/28
  */

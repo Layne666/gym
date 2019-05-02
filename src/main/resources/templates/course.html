@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>用户管理—360健身工作室</title>
+    <title>课程分类—360健身工作室</title>
     <meta name="description" content="360健身工作室">
     <meta name="keywords" content="360健身工作室">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -79,13 +79,13 @@
                             </ul>
                         </li>
                         <li class="tpl-left-nav-item">
-                            <a href="/user" class="nav-link tpl-left-nav-link-list active">
+                            <a href="/user" class="nav-link tpl-left-nav-link-list">
                                 <i class="am-icon-users am-icon-fw"></i>
                                 <span>会员管理</span>
                             </a>
                         </li>
                         <li class="tpl-left-nav-item">
-                            <a href="/coach" class="nav-link tpl-left-nav-link-list">
+                            <a href="/coach" class="nav-link tpl-left-nav-link-list active">
                                 <i class="am-icon-user am-icon-fw"></i>
                                 <span>教练管理</span>
                             </a>
@@ -115,12 +115,12 @@
             <div class="tpl-content-wrapper">
                 <ol class="am-breadcrumb">
                     <li><a href="/" class="am-icon-home">首页</a></li>
-                    <li class="am-active">会员管理</li>
+                    <li class="am-active">教练管理</li>
                 </ol>
                 <div class="tpl-portlet-components">
                     <div class="portlet-title">
                         <div class="caption font-green bold">
-                            <span class="am-icon-users"></span> 会员列表
+                            <span class="am-icon-user"></span> 教练列表
                         </div>
                     </div>
                     <div class="tpl-block">
@@ -129,7 +129,6 @@
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
                                         <button @click="add" type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                        <!--<button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>-->
                                         <button @click="batchDelete" type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 批量删除</button>
                                         <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-file-excel-o"></span> 导出</button>
                                     </div>
@@ -137,9 +136,9 @@
                             </div>
                             <div class="am-u-sm-12 am-u-md-3">
                                 <div class="am-input-group am-input-group-sm">
-                                    <input type="text" class="am-form-field" placeholder="请输入会员姓名">
+                                    <input type="text" class="am-form-field" placeholder="请输入教练姓名">
                                     <span class="am-input-group-btn">
-                                        <button class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button"></button>
+                                        <button class="am-btn am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button"></button>
                                     </span>
                                 </div>
                             </div>
@@ -149,29 +148,25 @@
                                 <table class="am-table am-table-striped am-table-hover table-main">
                                     <thead>
                                         <tr>
-                                            <th class="table-check"><input type="checkbox" class="tpl-table-fz-check" @click="checkAll" id="checkAll"></th>
+                                            <th class="table-title"><input type="checkbox" class="tpl-table-fz-check" @click="checkAll" id="checkAll"></th>
                                             <th class="table-title">姓名</th>
                                             <th class="table-title am-hide-sm-only">性别</th>
                                             <th class="table-title am-hide-sm-only">年龄</th>
                                             <th class="table-title am-hide-sm-only">联系方式</th>
-                                            <th class="table-title">剩余上课时</th>
-                                            <th class="table-title">课时价格</th>
-                                            <th class="table-title">课程分类</th>
-                                            <th class="table-title am-hide-sm-only">加入时间</th>
+                                            <th class="table-title">登录名</th>
+                                            <th class="table-title">登录密码</th>
                                             <th class="table-title">操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td><input type="checkbox" value="111"></td>
-                                            <td><a>张三呀呀呀呀</a></td>
+                                            <td><a>李四</a></td>
                                             <td>男</td>
                                             <td>18</td>
                                             <td>13856248726</td>
-                                            <td>46</td>
-                                            <td>￥<span>180</span></td>
-                                            <td><a>形体塑身</a></td>
-                                            <td>2019年4月29日</td>
+                                            <td>lisi001</td>
+                                            <td>123456</td>
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
@@ -184,14 +179,12 @@
                                         </tr>
                                         <tr>
                                             <td><input type="checkbox" value="111"></td>
-                                            <td><a>张三</a></td>
+                                            <td><a>王五</a></td>
                                             <td>男</td>
                                             <td>18</td>
                                             <td>13856248726</td>
-                                            <td>46</td>
-                                            <td>￥<span>180</span></td>
-                                            <td><a>形体塑身</a></td>
-                                            <td>2019年4月29日</td>
+                                            <td>wangwu</td>
+                                            <td>123456</td>
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
@@ -268,7 +261,6 @@
 </body>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/js/vue.min.js"></script>
-<script src="/js/user.js"></script>
 <script src="/assets/js/amazeui.min.js"></script>
 <script src="/assets/js/app.js"></script>
 </html>
