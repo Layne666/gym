@@ -85,13 +85,13 @@
                             </a>
                         </li>
                         <li class="tpl-left-nav-item">
-                            <a href="/coach" class="nav-link tpl-left-nav-link-list active">
+                            <a href="/coach" class="nav-link tpl-left-nav-link-list">
                                 <i class="am-icon-user am-icon-fw"></i>
                                 <span>教练管理</span>
                             </a>
                         </li>
                         <li class="tpl-left-nav-item">
-                            <a href="/course" class="nav-link tpl-left-nav-link-list">
+                            <a href="/course" class="nav-link tpl-left-nav-link-list active">
                                 <i class="am-icon-th-large am-icon-fw"></i>
                                 <span>课程分类</span>
                             </a>
@@ -115,12 +115,12 @@
             <div class="tpl-content-wrapper">
                 <ol class="am-breadcrumb">
                     <li><a href="/" class="am-icon-home">首页</a></li>
-                    <li class="am-active">教练管理</li>
+                    <li class="am-active">课程分类</li>
                 </ol>
                 <div class="tpl-portlet-components">
                     <div class="portlet-title">
                         <div class="caption font-green bold">
-                            <span class="am-icon-user"></span> 教练列表
+                            <span class="am-icon-th-large"></span> 分类列表
                         </div>
                     </div>
                     <div class="tpl-block">
@@ -130,13 +130,12 @@
                                     <div class="am-btn-group am-btn-group-xs">
                                         <button @click="add" type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
                                         <button @click="batchDelete" type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 批量删除</button>
-                                        <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-file-excel-o"></span> 导出</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="am-u-sm-12 am-u-md-3">
                                 <div class="am-input-group am-input-group-sm">
-                                    <input type="text" class="am-form-field" placeholder="请输入教练姓名">
+                                    <input type="text" class="am-form-field" placeholder="请输入分类名称">
                                     <span class="am-input-group-btn">
                                         <button class="am-btn am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button"></button>
                                     </span>
@@ -149,29 +148,18 @@
                                     <thead>
                                         <tr>
                                             <th class="table-title"><input type="checkbox" class="tpl-table-fz-check" @click="checkAll" id="checkAll"></th>
-                                            <th class="table-title">姓名</th>
-                                            <th class="table-title am-hide-sm-only">性别</th>
-                                            <th class="table-title am-hide-sm-only">年龄</th>
-                                            <th class="table-title am-hide-sm-only">联系方式</th>
-                                            <th class="table-title">登录名</th>
-                                            <th class="table-title">登录密码</th>
+                                            <th class="table-title">分类名称</th>
                                             <th class="table-title">操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td><input type="checkbox" value="111"></td>
-                                            <td><a>李四</a></td>
-                                            <td>男</td>
-                                            <td>18</td>
-                                            <td>13856248726</td>
-                                            <td>lisi001</td>
-                                            <td>123456</td>
+                                            <td><a>瑜伽</a></td>
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
                                                         <button @click="edit" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button @click="daka" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-warning"><span class="am-icon-link"></span> 打卡</button>
                                                         <button @click="del(111)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
                                                     </div>
                                                 </div>
@@ -179,17 +167,11 @@
                                         </tr>
                                         <tr>
                                             <td><input type="checkbox" value="111"></td>
-                                            <td><a>王五</a></td>
-                                            <td>男</td>
-                                            <td>18</td>
-                                            <td>13856248726</td>
-                                            <td>wangwu</td>
-                                            <td>123456</td>
+                                            <td><a>跑步</a></td>
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
                                                         <button @click="edit" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button @click="daka" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-warning"><span class="am-icon-link"></span> 打卡</button>
                                                         <button @click="del(111)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
                                                     </div>
                                                 </div>
