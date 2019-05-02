@@ -15,4 +15,10 @@ public class CenterController {
         return "center-photo";
     }
 
+    @RequestMapping("/data")
+    public String data(){
+        return "center-data";
+    }
+
+
 }
