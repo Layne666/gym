@@ -16,6 +16,8 @@ spring:
   mvc:
     favicon:
       enabled: false
+  thymeleaf:
+    cache: false
 #  thymeleaf:
 #      cache: false
 #      mode: HTML5
