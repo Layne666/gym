@@ -1,18 +1,13 @@
 package site.layne666.gym.pojo;
 
-
 import lombok.Data;
 
 /**
- * 教练
- *
  * @author layne666
- * @date 2019/05/07
+ * @date 2019/05/11
  */
 @Data
-public class Coach {
-    /** 编号 **/
-    private String bh;
+public class CoachParam {
 
     /** 姓名 **/
     private String name;
@@ -26,10 +21,9 @@ public class Coach {
     /** 电话号码 **/
     private String tel;
 
-    /** 头像 **/
-    private String img;
+    /** 登录名 **/
+    private String username;
 
-    /** 状态 **/
-    private Integer zt;
-
+    /** 登录密码 **/
+    private String password;
 }

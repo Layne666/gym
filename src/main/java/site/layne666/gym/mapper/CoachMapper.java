@@ -1,6 +1,7 @@
 package site.layne666.gym.mapper;
 
 
+import org.springframework.stereotype.Component;
 import site.layne666.gym.pojo.Coach;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  * @author layne666
  * @date 2019/05/05
  */
+@Component(value = "coachMapper")
 public interface CoachMapper {
 
     /**
@@ -37,5 +39,12 @@ public interface CoachMapper {
      * @return
      */
     Integer deleteCoachByBh(String bh);
+
+    /**
+     * 修改教练信息
+     * @param Coach
+     * @return
+     */
+    Integer updateCoach(Coach Coach);
 
 }

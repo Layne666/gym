@@ -9,11 +9,12 @@
         <result property="sex" column="c_sex"/>
         <result property="age" column="c_age"/>
         <result property="tel" column="c_tel"/>
+        <result property="img" column="c_img"/>
         <result property="zt" column="n_zt"/>
     </resultMap>
 
     <sql id="baseColumn">
-        c_bh,c_name,c_sex,c_age,c_tel,n_zt
+        c_bh,c_name,c_sex,c_age,c_tel,c_img,n_zt
     </sql>
 
     <select id="getCoaches" resultMap="baseMap">
@@ -31,12 +32,34 @@
     </select>
 
     <insert id="insertCoach">
-        insert into t_coach(c_bh,c_name,c_sex,c_age,c_tel,n_zt)
-        values(#{bh},#{name},#{sex},#{age},#{tel},#{zt})
+        insert into t_coach(c_bh,c_name,c_sex,c_age,c_tel,c_img,n_zt)
+        values(#{bh},#{name},#{sex},#{age},#{tel},'default.png',#{zt})
     </insert>
 
     <delete id="deleteCoachByBh">
         delete from t_coach where c_bh = #{bh}
     </delete>
+
+    <update id="updateCoach">
+        update t_coach
+        <set>
+            <if test="name!=null and name!=''">
+                c_name = #{name},
+            </if>
+            <if test="sex!=null and sex!=''">
+                c_sex = #{sex},
+            </if>
+            <if test="age!=null and age!=''">
+                c_age = #{age},
+            </if>
+            <if test="tel!=null and tel!=''">
+                c_tel = #{tel},
+            </if>
+            <if test="img!=null and img!=''">
+                c_img = #{img},
+            </if>
+        </set>
+        where c_bh = #{bh}
+    </update>
 
 </mapper>

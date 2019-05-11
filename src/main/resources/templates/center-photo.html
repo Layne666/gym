@@ -28,21 +28,21 @@
                             <div class="am-panel-bd">
                                 <div class="am-g">
                                     <div class="am-u-md-4">
-                                        <img class="am-img-circle am-img-thumbnail" src="https://ws2.sinaimg.cn/large/005SN4y5ly1g2lxfi0c25j305k05kmxd.jpg" alt=""/>
+                                        <img class="am-img-circle am-img-thumbnail" th:src="@{/upload/{filename}(filename=${session.account.getCoach().getImg()})}" alt="" style="width: 300px;height: 300px;"/>
                                     </div>
                                     <div class="am-u-md-8">
-                                        <p>你可以使用 系统默认提供的头像 或者使用 本地上传头像。 </p>
-                                        <form class="am-form">
+                                        <p>你可以使用 系统默认提供的头像 或者使用 本地上传头像（jpg或png图片文件）。 </p>
+                                        <form class="am-form" action="/center/upload" method="post" enctype="multipart/form-data" onsubmit="return check()">
                                             <div class="am-form-group">
                                                 <div class="am-form-group am-form-file">
                                                     <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                                         <i class="am-icon-cloud-upload"></i> 选择头像
                                                     </button>
-                                                    <input id="doc-form-file" type="file" multiple>
+                                                    <input name="file" id="doc-form-file" type="file" multiple>
                                                     <span id="file-list">未选择任何文件</span>
                                                 </div>
                                                 <p class="am-form-help">请选择要上传的头像...</p>
-                                                <button type="button" class="am-btn am-btn-primary am-btn-xs">保存</button>
+                                                <button type="submit" class="am-btn am-btn-primary am-btn-xs">保存</button>
                                             </div>
                                         </form>
                                     </div>
@@ -58,7 +58,6 @@
 </body>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/js/vue.min.js"></script>
-<script src="/js/user.js"></script>
 <script src="/assets/js/amazeui.min.js"></script>
 <script src="/assets/js/app.js"></script>
 <script>
@@ -71,5 +70,19 @@
             $('#file-list').html(fileNames);
         });
     });
+    function check() {
+        var fileInput = $('#doc-form-file').get(0).files[0];
+        if(!fileInput){
+            alert("请选择要上传的头像...");
+            return false;
+        }
+        let name = fileInput.name;
+        let suffix = name.substring(name.lastIndexOf(".") + 1);
+        if(suffix!="jpg" && suffix!="png"){
+            alert("请选择jpg或者png图片文件...");
+            return false;
+        }
+        return true;
+    }
 </script>
 </html>

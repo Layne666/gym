@@ -18,7 +18,7 @@
                 </ol>
                 <div class="tpl-content-scope">
                     <div class="note note-info">
-                        <h3>欢迎你，刘儒</h3>
+                        <h3>欢迎你，<span th:text="${session.account.getCoach().getName()}"></span></h3>
                         <p>欢迎使用360健身工作室的后台管理系统，通过此管理系统可以对会员、教练等进行管理，由<a href="https://github.com/Layne666" target="_blank">Layne666</a>在<a
                                 href="https://github.com/Layne666/gym" target="_blank">Github</a>进行代码维护。</p>
                     </div>

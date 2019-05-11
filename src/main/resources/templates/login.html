@@ -7,27 +7,27 @@
     <meta name="keywords" content="360健身工作室">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" media="screen" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="stylesheet" media="screen" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
 </head>
 <body>
-<script type="text/javascript" size="90" alpha="0.2" zIndex="0" src="js/lizi.js"></script>
+<script type="text/javascript" size="90" alpha="0.2" zIndex="0" src="/js/lizi.js"></script>
 <div id="app">
     <div class="login">
         <div class="login-top">
             360健身工作室
         </div>
         <div class="login-center clearfix">
-            <div class="login-center-img"><img src="img/name.png"/></div>
+            <div class="login-center-img"><img src="/img/name.png"/></div>
             <div class="login-center-input">
-                <input type="text" v-model="param.loginname" name="" value="" placeholder="请输入您的用户名" onfocus="this.placeholder=''"
+                <input type="text" v-model="param.username" name="" value="" placeholder="请输入您的用户名" onfocus="this.placeholder=''"
                        onblur="this.placeholder='请输入您的用户名'"/>
                 <div class="login-center-input-text">用户名</div>
             </div>
         </div>
         <div class="login-center clearfix">
-            <div class="login-center-img"><img src="img/password.png"/></div>
+            <div class="login-center-img"><img src="/img/password.png"/></div>
             <div class="login-center-input">
                 <input type="password" v-model="param.password" name="" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''"
                        onblur="this.placeholder='请输入您的密码'"/>
@@ -67,14 +67,14 @@
     }
 
 </script>
-<script type="text/javascript" src="js/vue.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/vue.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
 <script>
     const vm = new Vue({
         el:'#app',
         data:{
             param:{
-                loginname:'',
+                username:'',
                 password:''
             },
             success:false,
@@ -83,7 +83,7 @@
         methods:{
             login: function () {
                 let _this = this;
-                if(_this.param.loginname=='' || _this.param.password==""){
+                if(_this.param.username=='' || _this.param.password==""){
                     _this.success = true;
                     _this.msg = '用户名或密码不能为空';
                     return;
@@ -94,7 +94,7 @@
                     document.querySelector(".login").style.display = "none"
                     $.ajax({
                         type:'post',
-                        url:'login',
+                        url:'start',
                         data: _this.param,
                         dataType:'json',
                         success:function(result){
@@ -119,6 +119,14 @@
             }
         }
     })
+</script>
+<script>
+    //回车键触发登录
+    $(document).keyup(function(event){
+        if(event.keyCode == 13){
+            vm.login();
+        }
+    });
 </script>
 </body>
 </html>
