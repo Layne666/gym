@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.layne666.gym.mapper.AccountMapper">
+    <resultMap id="baseMap" type="site.layne666.gym.pojo.Account">
+        <id property="bh" column="c_bh"/>
+        <result property="username" column="c_username"/>
+        <result property="password" column="c_password"/>
+        <association property="coach" column="c_coach_bh" select="site.layne666.gym.mapper.CoachMapper.getCoachByBH"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        c_bh,c_username,c_password,c_coach_bh
+    </sql>
+
+    <select id="getAccounts" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_account
+    </select>
+
+    <select id="getAccountByNameAndPwd" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_account
+        where c_username = #{username} and c_password = #{password}
+    </select>
+
+    <select id="countAccountByName" resultType="int">
+        select count(1) from t_account where c_username = #{username}
+    </select>
+
+    <insert id="insertAccount">
+        insert into t_account(c_bh,c_username,c_password,c_coach_bh) values(#{bh},#{username},#{password},#{coach.bh})
+    </insert>
+
+    <delete id="deleteAccountByCoachBH">
+        delete from t_account where c_coach_bh = #{coachBh}
+    </delete>
+
+    <update id="updateAccount">
+        update t_account set c_username = #{username}, c_password = #{password}
+        where c_bh = #{bh}
+    </update>
+</mapper>

@@ -14,5 +14,10 @@ public class Consts {
     /** 否 **/
     public static final String NO = "2";
 
+    /** 有管理权限 **/
+    public static final String YGLQX = "1";
+
+    /** 无管理权限 **/
+    public static final String WGLQX = "2";
 
 }

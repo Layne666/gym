@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.layne666.gym.mapper.KsMapper">
+    <resultMap id="baseMap" type="site.layne666.gym.pojo.Ks">
+        <id property="bh" column="c_bh"/>
+        <result property="userBh" column="c_user_bh"/>
+        <result property="sysks" column="c_sysks"/>
+        <result property="ksjg" column="c_ksjg"/>
+        <result property="cjsj" column="dt_cjsj"/>
+        <association property="course" column="c_course_bh" select="site.layne666.gym.mapper.CourseMapper.getCourseByBh"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        c_bh,c_user_bh,c_course_bh,c_sysks,c_ksjg,dt_cjsj
+    </sql>
+
+    <select id="getKssByUserBh" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_user_ks where c_user_bh = #{userBh}
+    </select>
+
+    <insert id="insertKs">
+        insert into t_user_ks(c_bh,c_user_bh,c_course_bh,c_sysks,c_ksjg,dt_cjsj)
+        values(#{bh},#{userBh},#{course.bh},#{sysks},#{ksjg},#{cjsj})
+    </insert>
+
+</mapper>

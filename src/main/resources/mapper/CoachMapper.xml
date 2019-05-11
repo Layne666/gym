@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.layne666.gym.mapper.CoachMapper">
+    <resultMap id="baseMap" type="site.layne666.gym.pojo.Coach">
+        <id property="bh" column="c_bh"/>
+        <result property="name" column="c_name"/>
+        <result property="sex" column="c_sex"/>
+        <result property="age" column="c_age"/>
+        <result property="tel" column="c_tel"/>
+        <result property="zt" column="n_zt"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        c_bh,c_name,c_sex,c_age,c_tel,n_zt
+    </sql>
+
+    <select id="getCoaches" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_coach
+        where n_zt = '2'
+    </select>
+
+    <select id="getCoachByBH" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_coach
+        where c_bh = #{bh}
+    </select>
+
+    <insert id="insertCoach">
+        insert into t_coach(c_bh,c_name,c_sex,c_age,c_tel,n_zt)
+        values(#{bh},#{name},#{sex},#{age},#{tel},#{zt})
+    </insert>
+
+    <delete id="deleteCoachByBh">
+        delete from t_coach where c_bh = #{bh}
+    </delete>
+
+</mapper>

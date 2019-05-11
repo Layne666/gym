@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.layne666.gym.mapper.UserMapper">
+    <resultMap id="baseMap" type="site.layne666.gym.pojo.User">
+        <id property="bh" column="c_bh"/>
+        <result property="name" column="c_name"/>
+        <result property="sex" column="c_sex"/>
+        <result property="age" column="c_age"/>
+        <result property="tel" column="c_tel"/>
+        <association property="kss" column="c_bh" select="site.layne666.gym.mapper.CoachMapper.getCoachByBH"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        c_bh,c_name,c_sex,c_age,c_tel
+    </sql>
+
+    <select id="getUsers" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_user
+    </select>
+
+    <select id="getUserByBH" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_user where c_bh = #{bh}
+    </select>
+
+    <insert id="insertUser">
+        insert into t_user(c_bh,c_name,c_sex,c_age,c_tel)
+        values(#{bh},#{name},#{sex},#{age},#{tel})
+    </insert>
+
+</mapper>

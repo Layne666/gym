@@ -18,4 +18,7 @@ public class Account {
 
     /** 登录密码 **/
     private String password;
+
+    /** 教练信息 **/
+    private Coach coach;
 }

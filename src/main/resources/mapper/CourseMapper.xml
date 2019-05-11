@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.layne666.gym.mapper.CourseMapper">
+    <resultMap id="baseMap" type="site.layne666.gym.pojo.Course">
+        <id property="bh" column="c_bh"/>
+        <result property="name" column="c_name"/>
+    </resultMap>
+
+    <select id="getCourses" resultMap="baseMap">
+        select c_bh,c_name from t_course
+    </select>
+
+    <select id="getCourseByBh" resultMap="baseMap">
+        select c_bh,c_name from t_course where c_bh = #{bh}
+    </select>
+
+    <insert id="insertCourse">
+        insert into t_course(c_bh,c_name) values(#{bh},#{name})
+    </insert>
+
+    <delete id="deleteCourseByBH">
+        delete from t_course where c_bh = #{bh}
+    </delete>
+
+    <update id="updateCourse">
+        update t_course set c_name = #{name} where c_bh = #{bh}
+    </update>
+
+</mapper>

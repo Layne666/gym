@@ -24,6 +24,9 @@ public class Ks {
     /** 创建时间 **/
     private Date cjsj;
 
+    /** 会员编号 **/
+    private String userBh;
+
     /** 课时分类 **/
     private Course course;
 }

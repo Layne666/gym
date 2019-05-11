@@ -26,10 +26,7 @@ public class Coach {
     /** 电话号码 **/
     private String tel;
 
-    /** 是否有效 **/
-    private Integer sfyx;
-
-    /** 登录信息 **/
-    private Account account;
+    /** 状态 **/
+    private Integer zt;
 
 }

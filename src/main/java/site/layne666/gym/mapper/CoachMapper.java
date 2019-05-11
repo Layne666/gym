@@ -1,0 +1,41 @@
+package site.layne666.gym.mapper;
+
+
+import site.layne666.gym.pojo.Coach;
+
+import java.util.List;
+
+/**
+ * @author layne666
+ * @date 2019/05/05
+ */
+public interface CoachMapper {
+
+    /**
+     * 查询所有教练（非管理员）信息
+     * @return Coach集合
+     */
+    List<Coach> getCoaches();
+
+    /**
+     * 根据编号查询教练信息
+     * @param bh
+     * @return
+     */
+    Coach getCoachByBH(String bh);
+
+    /**
+     * 新增教练信息
+     * @param Coach
+     * @return
+     */
+    Integer insertCoach(Coach Coach);
+
+    /**
+     * 删除教练信息
+     * @param bh 编号
+     * @return
+     */
+    Integer deleteCoachByBh(String bh);
+
+}
