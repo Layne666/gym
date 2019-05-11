@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import site.layne666.gym.pojo.Account;
 import site.layne666.gym.pojo.ApiResult;
-import site.layne666.gym.service.IAccountService;
+import site.layne666.gym.service.AccountService;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 public class IndexContoller {
 
     @Autowired
-    private IAccountService accountService;
+    private AccountService accountService;
 
     @RequestMapping("/")
     public String index(HttpSession session){

@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import site.layne666.gym.common.Consts;
+import site.layne666.gym.mapper.AccountMapper;
+import site.layne666.gym.mapper.CoachMapper;
 import site.layne666.gym.pojo.Account;
 import site.layne666.gym.pojo.ApiResult;
 import site.layne666.gym.pojo.Coach;
 import site.layne666.gym.pojo.CoachParam;
-import site.layne666.gym.service.IAccountService;
-import site.layne666.gym.service.ICoachService;
+import site.layne666.gym.service.AccountService;
 import site.layne666.gym.utils.UUIDUtil;
 
 import javax.servlet.http.HttpServletResponse;
@@ -35,10 +36,13 @@ import java.io.IOException;
 public class CenterController {
 
     @Autowired
-    private IAccountService accountService;
+    private AccountService accountService;
 
     @Autowired
-    private ICoachService coachService;
+    private AccountMapper accountMapper;
+
+    @Autowired
+    private CoachMapper coachMapper;
 
     @RequestMapping("/photo")
     public String center(){
@@ -55,7 +59,7 @@ public class CenterController {
         Account account = (Account)session.getAttribute("account");
         accountService.updateAccount(account, param);
         //获取更新后的账号信息
-        Account newAccount = accountService.getAccountByBh(account.getBh());
+        Account newAccount = accountMapper.getAccountByBh(account.getBh());
         session.setAttribute("account",newAccount);
         resp.sendRedirect("/center/data");
     }
@@ -84,9 +88,9 @@ public class CenterController {
                 }
                 coach.setImg(filename);
                 //更新数据库
-                coachService.updateCoach(coach);
+                coachMapper.updateCoach(coach);
                 //更新session
-                Account newAccount = accountService.getAccountByBh(account.getBh());
+                Account newAccount = accountMapper.getAccountByBh(account.getBh());
                 session.setAttribute("account",newAccount);
                 resp.sendRedirect("/center/photo");
                 return new ApiResult(true,"头像上传成功");

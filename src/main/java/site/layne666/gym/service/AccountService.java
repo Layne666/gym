@@ -1,4 +1,4 @@
-package site.layne666.gym.service.impl;
+package site.layne666.gym.service;
 
 
 import org.apache.commons.lang.StringUtils;
@@ -9,7 +9,6 @@ import site.layne666.gym.mapper.CoachMapper;
 import site.layne666.gym.pojo.Account;
 import site.layne666.gym.pojo.Coach;
 import site.layne666.gym.pojo.CoachParam;
-import site.layne666.gym.service.IAccountService;
 import site.layne666.gym.utils.MD5Util;
 
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.List;
  * @date 2019/05/11
  */
 @Service
-public class AccountServiceImpl implements IAccountService {
+public class AccountService {
 
     @Autowired
     private AccountMapper accountMapper;
@@ -27,7 +26,12 @@ public class AccountServiceImpl implements IAccountService {
     @Autowired
     private CoachMapper coachMapper;
 
-    @Override
+    /**
+     * 检测是否登录信息是否存在，并返回
+     * @param username
+     * @param password
+     * @return
+     */
     public Account checkLogin(String username, String password) {
         String pwd = MD5Util.getMD5(password);
         List<Account> list = accountMapper.getAccountByNameAndPwd(username, pwd);
@@ -37,12 +41,12 @@ public class AccountServiceImpl implements IAccountService {
         return null;
     }
 
-    @Override
-    public Account getAccountByBh(String bh) {
-        return accountMapper.getAccountByBh(bh);
-    }
-
-    @Override
+    /**
+     * 更新账户信息
+     * @param account
+     * @param param
+     * @return
+     */
     public void updateAccount(Account account, CoachParam param) {
         account.setUsername(param.getUsername());
         //若修改了密码，需要对新密码进行MD5加密
