@@ -37,7 +37,7 @@
                     <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
                         <span class="tpl-header-list-user-nick" th:text="${session.account.getCoach().getName()}"></span>
                         <span class="tpl-header-list-user-ico">
-                            <img th:src="@{/upload/{filename}(filename=${session.account.getCoach().getImg()})}" style="width: 40px;height: 40px;">
+                            <img th:src="@{{path}(path=${session.account.getCoach().getImg()})}" style="width: 40px;height: 40px;">
                         </span>
                     </a>
                     <ul class="am-dropdown-content">
