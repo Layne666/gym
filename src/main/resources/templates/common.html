@@ -35,16 +35,19 @@
             <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
                 <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                     <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                        <span class="tpl-header-list-user-nick" th:text="${session.account.getCoach().getName()}"></span><span class="tpl-header-list-user-ico"><img th:src="@{/upload/{filename}(filename=${session.account.getCoach().getImg()})}"></span>
+                        <span class="tpl-header-list-user-nick" th:text="${session.account.getCoach().getName()}"></span>
+                        <span class="tpl-header-list-user-ico">
+                            <img th:src="@{/upload/{filename}(filename=${session.account.getCoach().getImg()})}" style="width: 40px;height: 40px;">
+                        </span>
                     </a>
                     <ul class="am-dropdown-content">
                         <li><a href="/center/photo"><span class="am-icon-photo"></span> 个人头像</a></li>
                         <li><a href="/center/data"><span class="am-icon-bell-o"></span> 个人资料</a></li>
-                        <li><a><span class="am-icon-power-off"></span> 退出</a></li>
+                        <li><a href="/logout"><span class="am-icon-power-off"></span> 退出</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="###" class="tpl-header-list-link">
+                    <a href="/logout" class="tpl-header-list-link">
                         <span class="am-icon-sign-out tpl-header-list-ico-out-size"></span>
                     </a>
                 </li>

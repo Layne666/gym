@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  * @date 2019/04/27
  */
 @Controller
-public class IndexContoller {
+public class IndexController {
 
     @Autowired
     private AccountService accountService;
@@ -54,5 +54,11 @@ public class IndexContoller {
             return new ApiResult(false,"登录失败");
         }
         return new ApiResult(false,"登录失败");
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "/login";
     }
 }
