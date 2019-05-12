@@ -1,5 +1,6 @@
 package site.layne666.gym.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import site.layne666.gym.pojo.Course;
 
@@ -13,10 +14,11 @@ import java.util.List;
 public interface CourseMapper {
 
     /**
-     * 查询所有课程分类
+     * 根据名称模糊查询所有课程分类
+     * @param name
      * @return
      */
-    List<Course> getCourses();
+    List<Course> getCourses(@Param("name") String name);
 
     /**
      * 根据编号查询课程分类

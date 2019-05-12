@@ -10,6 +10,11 @@
 
     <select id="getCourses" resultMap="baseMap">
         select c_bh,c_name from t_course
+        <where>
+            <if test="name!=null and name!=''">
+              c_name like concat('%',#{name},'%')
+            </if>
+        </where>
     </select>
 
     <select id="getCourseByBh" resultMap="baseMap">

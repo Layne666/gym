@@ -1,5 +1,7 @@
 package site.layne666.gym.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,8 +10,6 @@ import site.layne666.gym.mapper.CourseMapper;
 import site.layne666.gym.pojo.ApiResult;
 import site.layne666.gym.pojo.Course;
 import site.layne666.gym.service.CourseService;
-
-import java.util.List;
 
 /**
  * 课程
@@ -33,12 +33,16 @@ public class CourseController {
         return "course";
     }
 
-    @RequestMapping("/list")
+    @PostMapping("")
     @ResponseBody
-    public ApiResult list(){
+    public ApiResult list(Integer pageNum,String name){
+        if(pageNum==null){
+            pageNum = 1;
+        }
         try{
-            List<Course> courses = courseMapper.getCourses();
-            return new ApiResult(courses);
+            PageHelper.startPage(pageNum, 10);
+            PageInfo<Course> userPageInfo = new PageInfo<>(courseMapper.getCourses(name));
+            return new ApiResult(userPageInfo);
         }catch (Exception e){
             log.error("查询分类失败",e);
             return new ApiResult(false,"查询分类失败");
@@ -59,5 +63,56 @@ public class CourseController {
             return new ApiResult(true,"添加分类成功");
         }
         return new ApiResult(false,"添加分类失败");
+    }
+
+    @GetMapping("/edit")
+    public String edit(){
+        return "course-edit";
+    }
+
+    @GetMapping("/edit/{bh}")
+    @ResponseBody
+    public ApiResult editGet(@PathVariable("bh") String bh){
+        try{
+            Course course = courseMapper.getCourseByBh(bh);
+            return new ApiResult(course);
+        }catch (Exception e){
+            log.error("分类查询失败",e);
+            return new ApiResult(false,"分类查询失败");
+        }
+    }
+
+    @PostMapping("/edit")
+    @ResponseBody
+    public ApiResult editPost(Course course){
+        Integer result = courseMapper.updateCourse(course);
+        if(result == 1){
+            return new ApiResult(true,"分类修改成功");
+        }
+        return new ApiResult(false,"分类修改失败");
+    }
+
+    @PostMapping("/del/{bh}")
+    @ResponseBody
+    public ApiResult del(@PathVariable("bh") String bh){
+        Integer result = courseMapper.deleteCourseByBH(bh);
+        if(result == 1){
+            return new ApiResult(true,"分类删除成功");
+        }
+        return new ApiResult(false,"分类删除失败");
+    }
+
+    @PostMapping("/del")
+    @ResponseBody
+    public ApiResult batchDel(@RequestParam("bhs[]") String[] bhs){
+        try {
+            for (String bh : bhs) {
+                courseMapper.deleteCourseByBH(bh);
+            }
+            return new ApiResult(true,"分类批量删除成功");
+        }catch (Exception e){
+            log.error("分类批量删除成功",e);
+            return new ApiResult(true,"分类批量删除成功");
+        }
     }
 }

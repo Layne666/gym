@@ -34,9 +34,9 @@
                             </div>
                             <div class="am-u-sm-12 am-u-md-3">
                                 <div class="am-input-group am-input-group-sm">
-                                    <input type="text" class="am-form-field" placeholder="请输入分类名称">
+                                    <input type="text" class="am-form-field" placeholder="请输入分类名称" v-model="name">
                                     <span class="am-input-group-btn">
-                                        <button class="am-btn am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button"></button>
+                                        <button class="am-btn am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button" @click="loadData(1)"></button>
                                     </span>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
-                                                        <button @click="edit" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                        <button @click="edit(course.bh)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
                                                         <button @click="del(course.bh)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
                                                     </div>
                                                 </div>
@@ -67,13 +67,16 @@
                                     </tbody>
                                 </table>
                                 <div class="am-cf">
-                                    <span>共2条记录</span>
+                                    <span>共<span v-text="page.total"></span>条记录</span>
                                     <div class="am-fr">
                                         <ul class="am-pagination tpl-pagination">
-                                            <li class="am-disabled"><a href="#">«</a></li>
-                                            <li class="am-active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">»</a></li>
+                                            <li :class="{'am-disabled': page.pageNum == 1}"><a @click="loadData(page.pageNum-1)">«</a></li>
+                                            <li><a v-text="page.pageNum-2" v-if="page.pageNum>2" @click="loadData(page.pageNum-2)"></a></li>
+                                            <li><a v-text="page.pageNum-1" v-if="page.pageNum>1" @click="loadData(page.pageNum-1)"></a></li>
+                                            <li class="am-active"><a v-text="page.pageNum"></a></li>
+                                            <li><a v-text="page.pageNum+1" v-if="page.pageNum<page.pages" @click="loadData(page.pageNum+1)"></a></li>
+                                            <li><a v-if="page.pageNum<page.pages-1" @click="loadData(page.pageNum+2)">...</a></li>
+                                            <li :class="{'am-disabled': page.pageNum == page.pages}"><a @click="loadData(page.pageNum+1)">»</a></li>
                                         </ul>
                                     </div>
                                 </div>
