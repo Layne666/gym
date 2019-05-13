@@ -48,4 +48,10 @@ public interface CourseMapper {
      */
     Integer updateCourse(Course course);
 
+    /**
+     * 计算课程总数
+     * @return
+     */
+    Integer countCourse();
+
 }
