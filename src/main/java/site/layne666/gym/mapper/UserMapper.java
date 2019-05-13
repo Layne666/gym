@@ -1,5 +1,6 @@
 package site.layne666.gym.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import site.layne666.gym.pojo.User;
 
@@ -14,9 +15,10 @@ public interface UserMapper {
 
     /**
      * 查询所有会员信息
+     * @param name
      * @return
      */
-    List<User> getUsers();
+    List<User> getUsers(@Param("name") String name);
 
     /**
      * 根据会员编号查询会员信息

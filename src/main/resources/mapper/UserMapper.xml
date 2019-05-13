@@ -9,7 +9,6 @@
         <result property="sex" column="c_sex"/>
         <result property="age" column="c_age"/>
         <result property="tel" column="c_tel"/>
-        <association property="kss" column="c_bh" select="site.layne666.gym.mapper.CoachMapper.getCoachByBH"/>
     </resultMap>
 
     <sql id="baseColumn">
@@ -20,6 +19,11 @@
         select
         <include refid="baseColumn"/>
         from t_user
+        <where>
+            <if test="name!=null and name!=''">
+                c_name like concat('%',#{name},'%')
+            </if>
+        </where>
     </select>
 
     <select id="getUserByBH" resultMap="baseMap">

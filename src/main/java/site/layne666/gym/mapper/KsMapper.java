@@ -13,6 +13,12 @@ import java.util.List;
 public interface KsMapper {
 
     /**
+     * 查询所有课时信息
+     * @return
+     */
+    List<Ks> getKss();
+
+    /**
      * 根据用户编号查询其课时信息
      * @param userBh
      * @return

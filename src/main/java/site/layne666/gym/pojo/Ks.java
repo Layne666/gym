@@ -2,8 +2,6 @@ package site.layne666.gym.pojo;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * 用户课时
  *
@@ -22,11 +20,12 @@ public class Ks {
     private String ksjg;
 
     /** 创建时间 **/
-    private Date cjsj;
+    private String cjsj;
 
-    /** 会员编号 **/
-    private String userBh;
+    /** 会员信息 **/
+    private User user;
 
     /** 课时分类 **/
     private Course course;
+
 }

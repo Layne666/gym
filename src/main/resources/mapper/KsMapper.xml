@@ -5,16 +5,22 @@
 <mapper namespace="site.layne666.gym.mapper.KsMapper">
     <resultMap id="baseMap" type="site.layne666.gym.pojo.Ks">
         <id property="bh" column="c_bh"/>
-        <result property="userBh" column="c_user_bh"/>
         <result property="sysks" column="c_sysks"/>
         <result property="ksjg" column="c_ksjg"/>
         <result property="cjsj" column="dt_cjsj"/>
+        <association property="user" column="c_user_bh" select="site.layne666.gym.mapper.UserMapper.getUserByBH"/>
         <association property="course" column="c_course_bh" select="site.layne666.gym.mapper.CourseMapper.getCourseByBh"/>
     </resultMap>
 
     <sql id="baseColumn">
-        c_bh,c_user_bh,c_course_bh,c_sysks,c_ksjg,dt_cjsj
+        c_bh,c_user_bh,c_course_bh,c_sysks,c_ksjg,date_format('2018-01-15 09:45:16', '%Y年%m月%d日') as dt_cjsj
     </sql>
+
+    <select id="getKss" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_user_ks
+    </select>
 
     <select id="getKssByUserBh" resultMap="baseMap">
         select

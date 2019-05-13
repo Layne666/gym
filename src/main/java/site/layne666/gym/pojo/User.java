@@ -2,8 +2,6 @@ package site.layne666.gym.pojo;
 
 import lombok.Data;
 
-import java.util.List;
-
 /**
  * 会员用户
  *
@@ -27,7 +25,4 @@ public class User {
 
     /** 电话号码 **/
     private String tel;
-
-    /** 课时集合 **/
-    private List<Ks> kss;
 }

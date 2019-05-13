@@ -36,9 +36,9 @@
                             </div>
                             <div class="am-u-sm-12 am-u-md-3">
                                 <div class="am-input-group am-input-group-sm">
-                                    <input type="text" class="am-form-field" placeholder="请输入会员姓名">
+                                    <input type="text" class="am-form-field" placeholder="请输入会员姓名" v-model="name">
                                     <span class="am-input-group-btn">
-                                        <button class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button"></button>
+                                        <button class="am-btn am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button" @click="loadData(1)"></button>
                                     </span>
                                 </div>
                             </div>
@@ -61,42 +61,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><input type="checkbox" value="111"></td>
-                                            <td><a>张三呀呀呀呀</a></td>
-                                            <td>男</td>
-                                            <td>18</td>
-                                            <td>13856248726</td>
-                                            <td>46</td>
-                                            <td>￥<span>180</span></td>
-                                            <td><a>形体塑身</a></td>
-                                            <td>2019年4月29日</td>
+                                        <tr v-for="ks in kss">
+                                            <td><input type="checkbox" :value="ks.bh"></td>
+                                            <td><a v-text="ks.user.name"></a></td>
+                                            <td v-text="ks.user.sex"></td>
+                                            <td v-text="ks.user.age"></td>
+                                            <td v-text="ks.user.tel"></td>
+                                            <td v-text="ks.sysks"></td>
+                                            <td>￥<span v-text="ks.ksjg"></span></td>
+                                            <td><a v-text="ks.course.name" href="/course"></a></td>
+                                            <td v-text="ks.cjsj"></td>
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
-                                                        <button @click="edit" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button @click="daka" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-warning"><span class="am-icon-link"></span> 打卡</button>
-                                                        <button @click="del(111)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" value="111"></td>
-                                            <td><a>张三</a></td>
-                                            <td>男</td>
-                                            <td>18</td>
-                                            <td>13856248726</td>
-                                            <td>46</td>
-                                            <td>￥<span>180</span></td>
-                                            <td><a>形体塑身</a></td>
-                                            <td>2019年4月29日</td>
-                                            <td>
-                                                <div class="am-btn-toolbar">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <button @click="edit" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button @click="daka" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-warning"><span class="am-icon-link"></span> 打卡</button>
-                                                        <button @click="del(111)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                                        <button @click="edit(ks.bh)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                        <button @click="daka(ks.bh)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-warning"><span class="am-icon-link"></span> 打卡</button>
+                                                        <button @click="del(ks.bh)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -104,13 +84,16 @@
                                     </tbody>
                                 </table>
                                 <div class="am-cf">
-                                    <span>共2条记录</span>
+                                    <span>共<span v-text="page.total"></span>条记录</span>
                                     <div class="am-fr">
                                         <ul class="am-pagination tpl-pagination">
-                                            <li class="am-disabled"><a href="#">«</a></li>
-                                            <li class="am-active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">»</a></li>
+                                            <li :class="{'am-disabled': page.pageNum == 1}"><a @click="loadData(page.pageNum-1)">«</a></li>
+                                            <li><a v-text="page.pageNum-2" v-if="page.pageNum>2" @click="loadData(page.pageNum-2)"></a></li>
+                                            <li><a v-text="page.pageNum-1" v-if="page.pageNum>1" @click="loadData(page.pageNum-1)"></a></li>
+                                            <li class="am-active"><a v-text="page.pageNum"></a></li>
+                                            <li><a v-text="page.pageNum+1" v-if="page.pageNum<page.pages" @click="loadData(page.pageNum+1)"></a></li>
+                                            <li><a v-if="page.pageNum<page.pages-1" @click="loadData(page.pageNum+2)">...</a></li>
+                                            <li :class="{'am-disabled': page.pageNum == page.pages}"><a @click="loadData(page.pageNum+1)">»</a></li>
                                         </ul>
                                     </div>
                                 </div>

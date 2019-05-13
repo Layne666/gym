@@ -41,8 +41,8 @@ public class CourseController {
         }
         try{
             PageHelper.startPage(pageNum, 10);
-            PageInfo<Course> userPageInfo = new PageInfo<>(courseMapper.getCourses(name));
-            return new ApiResult(userPageInfo);
+            PageInfo<Course> pageInfo = new PageInfo<>(courseMapper.getCourses(name));
+            return new ApiResult(pageInfo);
         }catch (Exception e){
             log.error("查询分类失败",e);
             return new ApiResult(false,"查询分类失败");
