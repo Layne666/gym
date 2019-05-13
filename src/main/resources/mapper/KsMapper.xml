@@ -30,7 +30,7 @@
 
     <insert id="insertKs">
         insert into t_user_ks(c_bh,c_user_bh,c_course_bh,c_sysks,c_ksjg,dt_cjsj)
-        values(#{bh},#{userBh},#{course.bh},#{sysks},#{ksjg},#{cjsj})
+        values(#{bh},#{user.bh},#{course.bh},#{sysks},#{ksjg},now())
     </insert>
 
 </mapper>

@@ -11,6 +11,8 @@ import site.layne666.gym.pojo.ApiResult;
 import site.layne666.gym.pojo.Course;
 import site.layne666.gym.service.CourseService;
 
+import java.util.List;
+
 /**
  * 课程
  *
@@ -28,14 +30,14 @@ public class CourseController {
     @Autowired
     private CourseMapper courseMapper;
 
-    @RequestMapping("")
-    public String course(){
+    @GetMapping("")
+    public String courseGet(){
         return "course";
     }
 
     @PostMapping("")
     @ResponseBody
-    public ApiResult list(Integer pageNum,String name){
+    public ApiResult coursePost(Integer pageNum,String name){
         if(pageNum==null){
             pageNum = 1;
         }
@@ -43,6 +45,18 @@ public class CourseController {
             PageHelper.startPage(pageNum, 10);
             PageInfo<Course> pageInfo = new PageInfo<>(courseMapper.getCourses(name));
             return new ApiResult(pageInfo);
+        }catch (Exception e){
+            log.error("查询分类失败",e);
+            return new ApiResult(false,"查询分类失败");
+        }
+    }
+
+    @PostMapping("/list")
+    @ResponseBody
+    public ApiResult list(){
+        try{
+            List<Course> courses = courseMapper.getCourses(null);
+            return new ApiResult(courses);
         }catch (Exception e){
             log.error("查询分类失败",e);
             return new ApiResult(false,"查询分类失败");

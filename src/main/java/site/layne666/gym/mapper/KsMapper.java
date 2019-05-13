@@ -25,6 +25,11 @@ public interface KsMapper {
      */
     List<Ks> getKssByUserBh(String userBh);
 
+    /**
+     *  添加用户课时
+     * @param ks
+     * @return
+     */
     Integer insertKs(Ks ks);
 
 }
