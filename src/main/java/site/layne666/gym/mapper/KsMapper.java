@@ -19,6 +19,13 @@ public interface KsMapper {
     List<Ks> getKss();
 
     /**
+     * 根据编号查询所有课时信息
+     * @param bh
+     * @return
+     */
+    Ks getKssByBh(String bh);
+
+    /**
      * 根据用户编号查询其课时信息
      * @param userBh
      * @return
@@ -26,10 +33,17 @@ public interface KsMapper {
     List<Ks> getKssByUserBh(String userBh);
 
     /**
-     *  添加用户课时
+     * 添加用户课时
      * @param ks
      * @return
      */
     Integer insertKs(Ks ks);
+
+    /**
+     * 更新用户课时信息
+     * @param ks
+     * @return
+     */
+    Integer updateKs(Ks ks);
 
 }

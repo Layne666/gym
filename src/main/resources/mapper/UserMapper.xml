@@ -37,4 +37,23 @@
         values(#{bh},#{name},#{sex},#{age},#{tel})
     </insert>
 
+    <update id="updateUser">
+        update t_user
+        <set>
+            <if test="name!=null and name!=''">
+                c_name = #{name},
+            </if>
+            <if test="sex!=null and sex!=''">
+                c_sex = #{sex},
+            </if>
+            <if test="age!=null and age!=''">
+                c_age = #{age},
+            </if>
+            <if test="tel!=null and tel!=''">
+                c_tel = #{tel},
+            </if>
+        </set>
+        where c_bh = #{bh}
+    </update>
+
 </mapper>

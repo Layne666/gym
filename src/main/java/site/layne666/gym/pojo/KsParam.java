@@ -3,13 +3,12 @@ package site.layne666.gym.pojo;
 import lombok.Data;
 
 /**
- * 用户课时
- *
  * @author layne666
- * @date 2019/05/07
+ * @date 2019/05/16
  */
 @Data
-public class Ks {
+public class KsParam {
+
     /** 编号 **/
     private String bh;
 
@@ -22,10 +21,13 @@ public class Ks {
     /** 创建时间 **/
     private String cjsj;
 
-    /** 会员信息 **/
-    private User user;
+    private String userName;
 
-    /** 课时分类 **/
-    private Course course;
+    private String userSex;
 
+    private String userAge;
+
+    private String userTel;
+
+    private String courseName;
 }

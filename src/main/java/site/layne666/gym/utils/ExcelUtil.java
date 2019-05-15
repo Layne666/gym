@@ -51,7 +51,7 @@ public class ExcelUtil {
         //1.3 创建列标题样式
         HSSFCellStyle colStyle = createCellStyle(workbook, (short) 13, true);
         //1.4 创建正文样式
-        HSSFCellStyle valueStyle = createCellStyle(workbook, (short) 10, false);
+        HSSFCellStyle valueStyle = createCellStyle(workbook, (short) 12, false);
 
         //2.创建工作簿
         HSSFSheet sheet = workbook.createSheet();

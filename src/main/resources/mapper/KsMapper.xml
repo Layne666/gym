@@ -13,13 +13,19 @@
     </resultMap>
 
     <sql id="baseColumn">
-        c_bh,c_user_bh,c_course_bh,c_sysks,c_ksjg,date_format('2018-01-15 09:45:16', '%Y年%m月%d日') as dt_cjsj
+        c_bh,c_user_bh,c_course_bh,c_sysks,c_ksjg,date_format(dt_cjsj, '%Y年%m月%d日') as dt_cjsj
     </sql>
 
     <select id="getKss" resultMap="baseMap">
         select
         <include refid="baseColumn"/>
         from t_user_ks
+    </select>
+
+    <select id="getKssByBh" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_user_ks where c_bh = #{bh}
     </select>
 
     <select id="getKssByUserBh" resultMap="baseMap">
@@ -32,5 +38,21 @@
         insert into t_user_ks(c_bh,c_user_bh,c_course_bh,c_sysks,c_ksjg,dt_cjsj)
         values(#{bh},#{user.bh},#{course.bh},#{sysks},#{ksjg},now())
     </insert>
+
+    <update id="updateKs">
+        update t_user_ks
+        <set>
+          <if test="course.bh!=null and course.bh!=''">
+              c_course_bh = #{course.bh},
+          </if>
+          <if test="sysks!=null and sysks!=''">
+              c_sysks = #{sysks},
+          </if>
+          <if test="ksjg!=null and ksjg!=''">
+              c_ksjg = #{ksjg},
+          </if>
+        </set>
+        where c_bh = #{bh}
+    </update>
 
 </mapper>

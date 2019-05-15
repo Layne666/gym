@@ -30,43 +30,43 @@
                                 <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">姓名 / Name</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" placeholder="姓名 / Name" disabled value="张三">
+                                        <input type="text" placeholder="姓名 / Name" disabled :value="param.user.name">
                                     </div>
                                 </div>
                                 <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">课程分类 / Category</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" placeholder="输入会员的课程分类 / Category" disabled value="瑜伽">
+                                        <input type="text" placeholder="输入会员的课程分类 / Category" disabled :value="param.course.name">
                                     </div>
                                 </div>
                                 <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">剩余课时 / Unit</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" placeholder="输入剩余课时 / Unit" disabled value="32">
+                                        <input type="text" placeholder="输入剩余课时 / Unit" disabled :value="param.sysks">
                                     </div>
                                 </div>
                                 <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">课时价格 / Price</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" placeholder="输入课时价格 / Price" disabled value="￥180">
+                                        <input type="text" placeholder="输入课时价格 / Price" disabled :value="newKsjg">
                                     </div>
                                 </div>
                                 <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">打卡课时 / Course</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" placeholder="输入打卡课时 / Course" value="2">
+                                        <input type="text" placeholder="输入打卡课时 / Course" v-model="dkks">
                                     </div>
                                 </div>
                                 <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">打卡课时价格 / Price</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" placeholder="打卡课时价格 / Price" value="￥360" disabled>
+                                        <input type="text" placeholder="打卡课时价格 / Price" :value="dkksjg" disabled>
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
-                                        <button type="button" class="am-btn am-btn-primary">提交打卡记录</button>
+                                        <button type="submit" class="am-btn am-btn-primary">提交打卡记录</button>
                                     </div>
                                 </div>
                             </form>
@@ -80,6 +80,7 @@
 </body>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/js/vue.min.js"></script>
+<script src="/js/user-daka.js"></script>
 <script src="/assets/js/amazeui.min.js"></script>
 <script src="/assets/js/app.js"></script>
 </html>

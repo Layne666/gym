@@ -24,10 +24,12 @@ const vm = new Vue({
         add:function(){
             window.location.href = "/user/add";
         },
-        edit:function(){
+        edit:function(bh){
+            localStorage.setItem("ksBh", bh);
             window.location.href = "/user/edit";
         },
-        daka:function(){
+        daka:function(bh){
+            localStorage.setItem("ksBh", bh);
             window.location.href = "/user/daka";
         },
         loadData:function(pageNum){
@@ -89,6 +91,10 @@ const vm = new Vue({
                     alert('算求，不弄了');
                 }
             });
+        },
+        //导出
+        exportExcel:function(){
+            window.location.href = "/user/export?name=" + encodeURIComponent(this.name);
         }
     }
 
