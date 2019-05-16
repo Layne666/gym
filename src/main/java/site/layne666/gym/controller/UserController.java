@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import site.layne666.gym.mapper.KsMapper;
+import site.layne666.gym.mapper.UserMapper;
 import site.layne666.gym.pojo.ApiResult;
+import site.layne666.gym.pojo.Course;
 import site.layne666.gym.pojo.Ks;
 import site.layne666.gym.pojo.KsParam;
 import site.layne666.gym.service.KsService;
@@ -34,6 +36,9 @@ public class UserController {
 
     @Autowired
     private KsMapper ksMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping("")
     public String index(){
@@ -83,6 +88,9 @@ public class UserController {
     public ApiResult edit(@PathVariable("bh") String bh){
         try{
             Ks ks = ksMapper.getKssByBh(bh);
+            if(ks.getCourse()==null){
+                ks.setCourse(new Course("",""));
+            }
             return new ApiResult(ks);
         }catch (Exception e){
             log.error("分类查询失败",e);
@@ -99,6 +107,41 @@ public class UserController {
         }catch (Exception e){
             log.error("修改用户课时失败",e);
             return new ApiResult(false,"修改用户课时失败");
+        }
+    }
+
+    @PostMapping("/del/{bh}")
+    @ResponseBody
+    public ApiResult del(@PathVariable("bh") String bh){
+        try{
+            Ks ks = ksMapper.getKssByBh(bh);
+            //List<Ks> kss = ksMapper.getKssByUserBh(ks.getUser().getBh());
+            //如果当前用户只有一个课时信息就一起删除
+            //if(kss.size()==1){
+                userMapper.deleteUserByBh(ks.getUser().getBh());
+            //}
+            ksMapper.deleteKsByBh(bh);
+            return new ApiResult(true,"用户课时删除成功");
+        }catch (Exception e){
+            log.error("用户课时删除失败",e);
+            return new ApiResult(false,"用户课时删除失败");
+        }
+
+    }
+
+    @PostMapping("/del")
+    @ResponseBody
+    public ApiResult batchDel(@RequestParam("bhs[]") String[] bhs){
+        try {
+            for (String bh : bhs) {
+                Ks ks = ksMapper.getKssByBh(bh);
+                userMapper.deleteUserByBh(ks.getUser().getBh());
+                ksMapper.deleteKsByBh(bh);
+            }
+            return new ApiResult(true,"用户课时批量删除成功");
+        }catch (Exception e){
+            log.error("用户课时批量删除失败",e);
+            return new ApiResult(true,"用户课时批量删除失败");
         }
     }
 

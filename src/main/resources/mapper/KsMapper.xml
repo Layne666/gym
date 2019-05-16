@@ -28,6 +28,12 @@
         from t_user_ks where c_bh = #{bh}
     </select>
 
+    <select id="getKssByCourseBh" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_user_ks where c_course_bh = #{courseBh}
+    </select>
+
     <select id="getKssByUserBh" resultMap="baseMap">
         select
         <include refid="baseColumn"/>
@@ -54,5 +60,9 @@
         </set>
         where c_bh = #{bh}
     </update>
+
+    <delete id="deleteKsByBh">
+        delete from t_user_ks where c_bh = #{bh}
+    </delete>
 
 </mapper>

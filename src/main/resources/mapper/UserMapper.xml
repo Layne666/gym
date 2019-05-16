@@ -56,4 +56,8 @@
         where c_bh = #{bh}
     </update>
 
+    <delete id="deleteUserByBh">
+        delete from t_user where c_bh = #{bh}
+    </delete>
+
 </mapper>

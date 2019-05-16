@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import site.layne666.gym.mapper.CourseMapper;
+import site.layne666.gym.mapper.KsMapper;
 import site.layne666.gym.pojo.ApiResult;
 import site.layne666.gym.pojo.Course;
+import site.layne666.gym.pojo.Ks;
 import site.layne666.gym.service.CourseService;
 
 import java.util.List;
@@ -29,6 +31,9 @@ public class CourseController {
 
     @Autowired
     private CourseMapper courseMapper;
+
+    @Autowired
+    private KsMapper ksMapper;
 
     @GetMapping("")
     public String courseGet(){
@@ -109,11 +114,18 @@ public class CourseController {
     @PostMapping("/del/{bh}")
     @ResponseBody
     public ApiResult del(@PathVariable("bh") String bh){
-        Integer result = courseMapper.deleteCourseByBH(bh);
-        if(result == 1){
+        try {
+            List<Ks> kss = ksMapper.getKssByCourseBh(bh);
+            for (Ks ks : kss) {
+                ks.setCourse(new Course());
+                ksMapper.updateKs(ks);
+            }
+            courseMapper.deleteCourseByBH(bh);
             return new ApiResult(true,"分类删除成功");
+        }catch (Exception e){
+            log.error("分类删除失败",e);
+            return new ApiResult(false,"分类删除失败");
         }
-        return new ApiResult(false,"分类删除失败");
     }
 
     @PostMapping("/del")
@@ -122,6 +134,11 @@ public class CourseController {
         try {
             for (String bh : bhs) {
                 courseMapper.deleteCourseByBH(bh);
+                List<Ks> kss = ksMapper.getKssByCourseBh(bh);
+                for (Ks ks : kss) {
+                    ks.setCourse(new Course());
+                    ksMapper.updateKs(ks);
+                }
             }
             return new ApiResult(true,"分类批量删除成功");
         }catch (Exception e){

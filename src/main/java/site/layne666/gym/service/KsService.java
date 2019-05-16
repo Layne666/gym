@@ -32,6 +32,11 @@ public class KsService {
         List<Ks> result = new ArrayList<>();
         for (User user : users) {
             List<Ks> kss = ksMapper.getKssByUserBh(user.getBh());
+            for (Ks ks : kss) {
+                if(ks.getCourse()==null){
+                    ks.setCourse(new Course());
+                }
+            }
             result.addAll(kss);
         }
         return result;

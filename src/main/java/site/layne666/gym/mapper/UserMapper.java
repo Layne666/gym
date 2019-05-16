@@ -41,4 +41,11 @@ public interface UserMapper {
      */
     Integer updateUser(User user);
 
+    /**
+     * 根据编号删除会员信息
+     * @param bh
+     * @return
+     */
+    Integer deleteUserByBh(String bh);
+
 }

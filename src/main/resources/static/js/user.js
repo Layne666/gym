@@ -55,9 +55,7 @@ const vm = new Vue({
             let ids = new Array();
             let $cks = $('tbody input[type="checkbox"]:checked');
             $cks.each(function(){
-                if (!isNaN($(this).val())) {
-                    ids.push($(this).val());
-                }
+                ids.push($(this).val());
             });
             if(ids.length==0){
                 $('#checkDel').modal();
@@ -66,14 +64,17 @@ const vm = new Vue({
             this.delByIds(ids);
         },
         //进行批量删除
-        delByIds:function(ids){
-            let _this = this;
+        delByIds:function(bhs){
             $('#delByIds').modal({
                 onConfirm: function() {
-                    alert('你要批量删除的链接 ID 为' + ids);
-                },
-                onCancel: function() {
-                    alert('算求，不弄了');
+                    $.ajax({
+                        type: "POST",
+                        url: "/user/del",
+                        data:{bhs:bhs},
+                        success: function () {
+                            window.location.href="/user";
+                        }
+                    });
                 }
             });
         },
@@ -81,14 +82,17 @@ const vm = new Vue({
         checkAll:function(){
             $('tbody input[type="checkbox"]').prop('checked',$("#checkAll").prop('checked'));
         },
-        del:function(id){
-            let _this = this;
+        del:function(bh){
             $('#del').modal({
                 onConfirm: function() {
-                    alert('你要删除的链接 ID 为' + id);
-                },
-                onCancel: function() {
-                    alert('算求，不弄了');
+                    $.ajax({
+                        type: "POST",
+                        url: "/user/del/"+bh,
+                        dataType: "json",
+                        success: function () {
+                            window.location.href="/user";
+                        }
+                    });
                 }
             });
         },

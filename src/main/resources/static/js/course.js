@@ -68,7 +68,6 @@ const vm = new Vue({
         },
         //进行批量删除
         delByIds:function(bhs){
-            let _this = this;
             $('#delByIds').modal({
                 onConfirm: function() {
                     $.ajax({
@@ -88,7 +87,6 @@ const vm = new Vue({
         },
         //删除的确定/取消
         del:function(bh){
-            let _this = this;
             $('#del').modal({
                 onConfirm: function() {
                     $.ajax({

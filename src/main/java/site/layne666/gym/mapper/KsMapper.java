@@ -26,6 +26,13 @@ public interface KsMapper {
     Ks getKssByBh(String bh);
 
     /**
+     * 根据课程编号查询所有课时信息
+     * @param bh
+     * @return
+     */
+    List<Ks> getKssByCourseBh(String courseBh);
+
+    /**
      * 根据用户编号查询其课时信息
      * @param userBh
      * @return
@@ -45,5 +52,12 @@ public interface KsMapper {
      * @return
      */
     Integer updateKs(Ks ks);
+
+    /**
+     * 根据编号删除用户课时信息
+     * @param bh
+     * @return
+     */
+    Integer deleteKsByBh(String bh);
 
 }
