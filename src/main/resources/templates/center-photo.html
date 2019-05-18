@@ -31,33 +31,20 @@
                                         <img class="am-img-circle am-img-thumbnail" th:src="@{{path}(path=${session.account.getCoach().getImg()})}" alt="" style="width: 300px;height: 300px;"/>
                                     </div>
                                     <div class="am-u-md-8">
-                                        <p>你可以使用 系统默认提供的头像 或者 <a href="https://img.layne666.site/" target="_blank">上传本地头像</a>，然后复制图片地址在下方粘贴。 </p>
-                                        <!--<form class="am-form" action="/center/upload" method="post" enctype="multipart/form-data" onsubmit="return check()">-->
-                                            <!--<div class="am-form-group">-->
-                                                <!--<div class="am-form-group am-form-file">-->
-                                                    <!--<button type="button" class="am-btn am-btn-danger am-btn-sm">-->
-                                                        <!--<i class="am-icon-cloud-upload"></i> 选择头像-->
-                                                    <!--</button>-->
-                                                    <!--<input name="file" id="doc-form-file" type="file" multiple>-->
-                                                    <!--<span id="file-list">未选择任何文件</span>-->
-                                                <!--</div>-->
-                                                <!--<p class="am-form-help">请选择要上传的头像...</p>-->
-                                                <!--<button type="submit" class="am-btn am-btn-primary am-btn-xs">保存</button>-->
-                                            <!--</div>-->
-                                        <!--</form>-->
-                                        <form class="am-form tpl-form-line-form">
-                                            <div class="am-form-group">
-                                                <div class="am-u-sm-9">
-                                                    <input v-model="path" type="text" class="tpl-form-input" placeholder="请输入上传的头像地址...">
-                                                    <p class="am-form-help">请输入上传的头像地址...</p>
-                                                </div>
+                                        <p>你可以使用 系统默认提供的头像 或者 上传本地头像。 </p>
+                                        <form class="am-form" action="/center/upload" method="post" enctype="multipart/form-data" onsubmit="return check()">
+                                        <div class="am-form-group">
+                                            <div class="am-form-group am-form-file">
+                                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                                    <i class="am-icon-cloud-upload"></i> 选择头像
+                                                </button>
+                                                <input name="file" id="doc-form-file" type="file" multiple>
+                                                <span id="file-list">未选择任何文件</span>
                                             </div>
-                                            <div class="am-form-group">
-                                                <div class="am-u-sm-9 am-u-sm-push-3">
-                                                    <button @click="submitPath" type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success">提交</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                            <p class="am-form-help">请选择要上传的头像...</p>
+                                            <button type="submit" class="am-btn am-btn-primary am-btn-xs">保存</button>
+                                        </div>
+                                    </form>
                                     </div>
                                 </div>
                             </div>
@@ -71,41 +58,6 @@
 </body>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/js/vue.min.js"></script>
-<script>
-    const vm = new Vue({
-        el:'#app',
-        data: function(){
-            return {
-                path:''
-            }
-        },
-        mounted:function(){
-            this.loadData();
-        },
-        methods:{
-            submitPath:function(){
-                $.ajax({
-                    type: "POST",
-                    url: "/center/photo/path",
-                    data: {path: this.path},
-                    success: function () {
-                        window.location.href="/center/photo";
-                    }
-                });
-            },
-            loadData:function(){
-                let _this = this;
-                $.ajax({
-                    type: "POST",
-                    url: "/center/photo",
-                    success: function (result) {
-                        _this.path = result.data;
-                    }
-                });
-            }
-        }
-    })
-</script>
 <script src="/assets/js/amazeui.min.js"></script>
 <script src="/assets/js/app.js"></script>
 <script>
@@ -119,7 +71,7 @@
         });
     });
     function check() {
-        var fileInput = $('#doc-form-file').get(0).files[0];
+        let fileInput = $('#doc-form-file').get(0).files[0];
         if(!fileInput){
             alert("请选择要上传的头像...");
             return false;

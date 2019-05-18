@@ -8,7 +8,7 @@ spring:
     url: jdbc:mysql://localhost:3306/gym?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
-    initial-size: 1
+    initial-size: 5
     min-idle: 1
     max-active: 20
     test-on-borrow: true
@@ -18,8 +18,13 @@ spring:
       enabled: false
   thymeleaf:
     cache: false
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: site.layne666.gym.pojo
+
 
