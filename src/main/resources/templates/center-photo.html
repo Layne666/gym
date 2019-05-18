@@ -38,7 +38,7 @@
                                                 <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                                     <i class="am-icon-cloud-upload"></i> 选择头像
                                                 </button>
-                                                <input name="file" id="doc-form-file" type="file" multiple>
+                                                <input name="file" id="doc-form-file" accept="image/*" type="file" multiple>
                                                 <span id="file-list">未选择任何文件</span>
                                             </div>
                                             <p class="am-form-help">请选择要上传的头像...</p>
@@ -76,11 +76,14 @@
             alert("请选择要上传的头像...");
             return false;
         }
-        let name = fileInput.name;
+        /*let name = fileInput.name;
         let suffix = name.substring(name.lastIndexOf(".") + 1);
         if(suffix!="jpg" && suffix!="png"){
             alert("请选择jpg或者png图片文件...");
             return false;
+        }*/
+        if((fileInput.type).indexOf("image/")==-1){
+            alert("请上传正确格式的图片...");
         }
         return true;
     }
