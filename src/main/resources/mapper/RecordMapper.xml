@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.layne666.gym.mapper.RecordMapper">
+    <resultMap id="baseMap" type="site.layne666.gym.pojo.Record">
+        <id property="bh" column="c_bh"/>
+        <result property="skks" column="c_skks"/>
+        <result property="kszj" column="c_kszj"/>
+        <result property="cjsj" column="dt_cjsj"/>
+        <association property="user" column="c_user_bh" select="site.layne666.gym.mapper.UserMapper.getUserByBH"/>
+        <association property="coach" column="c_coach_bh" select="site.layne666.gym.mapper.CoachMapper.getCoachByBH"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        c_bh,c_user_bh,c_coach_bh,c_skks,c_kszj,date_format(dt_cjsj, '%Y年%m月%d日') as dt_cjsj
+    </sql>
+
+    <select id="getRecords" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_record
+    </select>
+
+
+    <insert id="InsertRecord">
+        insert into t_record(c_bh,c_user_bh,c_coach_bh,c_skks,c_kszj,dt_cjsj)
+        values(#{bh},#{user.bh},#{coach.bh},#{skks},#{kszj},now())
+    </insert>
+
+
+</mapper>

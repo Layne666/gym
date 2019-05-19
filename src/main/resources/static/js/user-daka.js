@@ -1,5 +1,5 @@
 /**
- * a vue object for user-edit.html
+ * a vue object for user-daka.html
  */
 const vm = new Vue({
     el:'#app',
@@ -35,13 +35,19 @@ const vm = new Vue({
         },
     },
     methods:{
-        submitEdit:function(){
+        submitDaka:function(){
             let _this = this;
+            if(parseInt(_this.dkks)>parseInt(_this.param.sysks)){
+                alert("打卡课时超过剩余课时..请重新填写");
+                return;
+            }
             $.ajax({
                 type: "POST",
-                url: "/user/edit",
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify(_this.param),
+                url: "/user/daka",
+                data: {
+                    bh:_this.param.bh,
+                    dkks:_this.dkks
+                },
                 dataType: "json",
                 success: function () {
                     window.location.href="/user";

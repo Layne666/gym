@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import site.layne666.gym.mapper.KsMapper;
+import site.layne666.gym.mapper.RecordMapper;
 import site.layne666.gym.mapper.UserMapper;
-import site.layne666.gym.pojo.ApiResult;
-import site.layne666.gym.pojo.Course;
-import site.layne666.gym.pojo.Ks;
-import site.layne666.gym.pojo.KsParam;
+import site.layne666.gym.pojo.*;
 import site.layne666.gym.service.KsService;
 import site.layne666.gym.utils.ExcelUtil;
+import site.layne666.gym.utils.UUIDUtil;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +39,9 @@ public class UserController {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RecordMapper recordMapper;
 
     @GetMapping("")
     public String index(){
@@ -145,9 +148,32 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/daka")
-    public String daka(){
+    @GetMapping("/daka")
+    public String dakaGet(){
         return "user-daka";
+    }
+
+    @PostMapping("/daka")
+    @ResponseBody
+    public ApiResult dakaPost(String bh, String dkks, HttpSession session){
+        try{
+            Account account = (Account)session.getAttribute("account");
+            Ks ks = ksMapper.getKssByBh(bh);
+            //减去已上课时
+            ks.setSysks(String.valueOf(Integer.valueOf(ks.getSysks())-Integer.valueOf(dkks)));
+            ksMapper.updateKs(ks);
+            Record record = new Record();
+            record.setBh(UUIDUtil.getUUid());
+            record.setSkks(dkks);
+            record.setKszj(String.valueOf(Integer.valueOf(ks.getKsjg())*Integer.valueOf(dkks)));
+            record.setUser(ks.getUser());
+            record.setCoach(account.getCoach());
+            recordMapper.InsertRecord(record);
+            return new ApiResult(true,"打卡成功");
+        }catch (Exception e){
+            log.error("打卡失败",e);
+            return new ApiResult(false,"打卡失败");
+        }
     }
 
     @RequestMapping("/export")
