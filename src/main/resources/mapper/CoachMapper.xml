@@ -13,16 +13,19 @@
         <result property="zt" column="n_zt"/>
     </resultMap>
 
-    <sql id="baseColumn">
-        c_bh,c_name,c_sex,c_age,c_tel,c_img,n_zt
-    </sql>
-
     <select id="getCoaches" resultMap="baseMap">
         select
         <include refid="baseColumn"/>
         from t_coach
         where n_zt = '2'
+        <if test="name!=null and name!=''">
+            and c_name like concat('%',#{name},'%')
+        </if>
     </select>
+
+    <sql id="baseColumn">
+        c_bh,c_name,c_sex,c_age,c_tel,c_img,n_zt
+    </sql>
 
     <select id="getCoachByBH" resultMap="baseMap">
         select
@@ -33,7 +36,7 @@
 
     <insert id="insertCoach">
         insert into t_coach(c_bh,c_name,c_sex,c_age,c_tel,c_img,n_zt)
-        values(#{bh},#{name},#{sex},#{age},#{tel},'default.png',#{zt})
+        values(#{bh},#{name},#{sex},#{age},#{tel},'https://i.loli.net/2019/05/19/5ce0ed96ac68618113.jpg',2)
     </insert>
 
     <delete id="deleteCoachByBh">

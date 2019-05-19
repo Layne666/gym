@@ -1,6 +1,7 @@
 package site.layne666.gym.mapper;
 
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import site.layne666.gym.pojo.Coach;
 
@@ -15,9 +16,10 @@ public interface CoachMapper {
 
     /**
      * 查询所有教练（非管理员）信息
+     * @param name
      * @return Coach集合
      */
-    List<Coach> getCoaches();
+    List<Coach> getCoaches(@Param("name") String name);
 
     /**
      * 根据编号查询教练信息

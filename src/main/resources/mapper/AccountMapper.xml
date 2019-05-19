@@ -26,6 +26,12 @@
         from t_account where c_bh = #{bh}
     </select>
 
+    <select id="getAccountByCoachBh" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_account where c_coach_bh = #{coachBh}
+    </select>
+
     <select id="getAccountByNameAndPwd" resultMap="baseMap">
         select
         <include refid="baseColumn"/>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="common :: head(title='教练管理-360健身工作室')"></div>
+<body data-type="generalComponents">
+<div id="app">
+    <!-- 头部导航栏 -->
+    <div th:replace="common :: header"></div>
+
+    <div class="tpl-page-container tpl-page-header-fixed">
+        <!-- 左侧页签 -->
+        <div th:replace="common :: side(activeUrl='/coach')"></div>
+
+        <!-- 正文内容 -->
+        <div class="tpl-content-wrapper">
+            <ol class="am-breadcrumb">
+                <li><a href="/" class="am-icon-home">首页</a></li>
+                <li><a href="/coach">教练管理</a></li>
+                <li class="am-active">编辑教练</li>
+            </ol>
+            <div class="tpl-portlet-components">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        <span class="am-icon-edit"></span> 编辑教练
+                    </div>
+                </div>
+                <div class="tpl-block ">
+                    <div class="am-g tpl-amazeui-form">
+                        <div class="am-u-sm-12 am-u-md-9">
+                            <form class="am-form am-form-horizontal">
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">姓名 / Name</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" placeholder="姓名 / Name" v-model="param.coach.name">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">性别 / Sex</label>
+                                    <div class="am-u-sm-9">
+                                        <select name="sex" v-model="param.coach.sex">
+                                            <option value="">---</option>
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">年龄 / Age</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" placeholder="输入教练的年龄 / Age" v-model="param.coach.age">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">电话 / Telephone</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" placeholder="输入教练的电话号码 / Telephone" v-model="param.coach.tel">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">登录名 / Username</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" placeholder="输入登录名 / Telephone" v-model="param.username">
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">登录密码 / Password</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="password" placeholder="输入登录密码 / Telephone" v-model="param.password">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3">
+                                        <button @click="submitEdit" type="button" class="am-btn am-btn-primary">保存修改</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/js/vue.min.js"></script>
+<script src="/js/coach-edit.js"></script>
+<script src="/assets/js/amazeui.min.js"></script>
+<script src="/assets/js/app.js"></script>
+</html>

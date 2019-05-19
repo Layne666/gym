@@ -27,7 +27,7 @@ public class MD5Util {
             // BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
             return new BigInteger(1, md.digest()).toString(16);
         } catch (Exception e) {
-            log.error("生成MD5加密计算摘要出现错误",e);
+            log.error("生成MD5加密计算摘要出现错误", e);
             return null;
         }
     }
@@ -61,9 +61,23 @@ public class MD5Util {
             }
             return new String(strs);
         } catch (Exception e) {
-            log.error("获得MD5摘要算法出错",e);
+            log.error("获得MD5摘要算法出错", e);
             return null;
         }
+    }
+
+    /**
+     * 加密解密算法 执行一次加密，两次解密
+     *
+     * @param str 传入要解密的字符串
+     */
+    public static String convertMD5(String str) {
+        char[] a = str.toCharArray();
+        for (int i = 0; i < a.length; i++) {
+            a[i] = (char) (a[i] ^ 't');
+        }
+        String s = new String(a);
+        return s;
     }
 }
 

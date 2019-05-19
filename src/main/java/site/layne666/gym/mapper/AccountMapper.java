@@ -27,6 +27,13 @@ public interface AccountMapper {
     Account getAccountByBh(String bh);
 
     /**
+     * 根据教练编号查询账号信息
+     * @param coachBh
+     * @return
+     */
+    Account getAccountByCoachBh(String coachBh);
+
+    /**
      * 根据用户名和密码查询登录信息
      * @param username
      * @param password

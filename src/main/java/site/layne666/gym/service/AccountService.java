@@ -33,7 +33,7 @@ public class AccountService {
      * @return
      */
     public Account checkLogin(String username, String password) {
-        String pwd = MD5Util.getMD5(password);
+        String pwd = MD5Util.MD5(password);
         List<Account> list = accountMapper.getAccountByNameAndPwd(username, pwd);
         if(list.size() == 1){
             return list.get(0);

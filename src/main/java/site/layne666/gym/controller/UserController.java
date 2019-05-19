@@ -169,6 +169,6 @@ public class UserController {
             ksParam.setUserTel(ks.getUser().getTel());
             list.add(ksParam);
         }
-        Map<String, Object> result = ExcelUtil.exportExcel(list, colTitles, properties, "会员课时统计列表", "会员课时统计表", resp);
+        ExcelUtil.exportExcel(list, colTitles, properties, "会员课时统计列表", "会员课时统计表", resp);
     }
 }
