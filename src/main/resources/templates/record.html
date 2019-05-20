@@ -28,18 +28,18 @@
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
                                         <button @click="batchDelete" type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 批量删除</button>
-                                        <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-file-excel-o"></span> 导出</button>
+                                        <button @click="exportExcel" type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-file-excel-o"></span> 导出</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="am-u-sm-12 am-u-md-3">
-                                <div class="am-form-group">
-                                    <select data-am-selected="{btnSize: 'sm'}" v-model="courseBh">
-                                        <option value=" " selected>所有分类</option>
-                                        <option :value="course.bh" v-for="course in courses">{{ course.name }}</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <!--<div class="am-u-sm-12 am-u-md-3">-->
+                                <!--<div class="am-form-group">-->
+                                    <!--<select data-am-selected="{btnSize: 'sm'}">-->
+                                        <!--<option value=" " selected>所有分类</option>-->
+                                        <!--<option :value="course.bh" v-for="course in courses">{{ course.name }}</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
                             <div class="am-u-sm-12 am-u-md-3">
                                 <div class="am-input-group am-input-group-sm">
                                     <input v-model="name" type="text" class="am-form-field" placeholder="请输入会员姓名">

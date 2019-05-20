@@ -16,19 +16,18 @@ const vm = new Vue({
                 total:''
             },
             courses:[],
-            name:'',
-            courseBh:''
+            name:''
         }
     },
     watch: {
         courseBh: function () {
             this.loadData();
-            this.loadCourse();
+            //this.loadCourse();
         }
     },
     mounted:function(){
         this.loadData();
-        this.loadCourse();
+        //this.loadCourse();
     },
     methods:{
         loadData:function(pageNum){
@@ -38,8 +37,7 @@ const vm = new Vue({
                 url: "/record",
                 data:{
                     pageNum:pageNum,
-                    name:_this.name,
-                    courseBh:_this.courseBh
+                    name:_this.name
                 },
                 dataType: "json",
                 success: function (result) {

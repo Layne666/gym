@@ -4,17 +4,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import netscape.javascript.JSObject;
-import org.apache.poi.hssf.record.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import site.layne666.gym.mapper.RecordMapper;
-import site.layne666.gym.pojo.ApiResult;
-import site.layne666.gym.pojo.Ks;
-import site.layne666.gym.pojo.Record;
+import site.layne666.gym.pojo.*;
 import site.layne666.gym.service.RecordService;
+import site.layne666.gym.utils.ExcelUtil;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +40,7 @@ public class RecordController {
 
     @PostMapping("")
     @ResponseBody
-    public ApiResult recordPost(Integer pageNum,String name,String courseBh){
+    public ApiResult recordPost(Integer pageNum,String name){
         if(pageNum==null){
             pageNum = 1;
         }
@@ -83,5 +82,25 @@ public class RecordController {
             log.error("课时记录批量删除失败",e);
             return new ApiResult(true,"课时记录批量删除失败");
         }
+    }
+
+    @RequestMapping("/export")
+    public void export(String name, HttpServletResponse resp) {
+        String[] colTitles = {"会员姓名", "教练姓名", "课程分类", "课时价格（元）", "上课课时", "课时总价（元）", "创建时间"};
+        String[] properties = {"userName", "coachName", "courseName", "ksjg", "skks", "kszj", "cjsj"};
+        List<Object> list = new ArrayList<>();
+        List<Record> records = recordService.getRecords(name);
+        for (Record record : records) {
+            RecordParam param = new RecordParam();
+            param.setUserName(record.getKs().getUser().getName());
+            param.setCoachName(record.getCoach().getName());
+            param.setCourseName(record.getKs().getCourse().getName());
+            param.setKsjg("¥"+record.getKs().getKsjg());
+            param.setSkks(record.getSkks());
+            param.setKszj("¥"+record.getKszj());
+            param.setCjsj(record.getCjsj());
+            list.add(param);
+        }
+        ExcelUtil.exportExcel(list, colTitles, properties, "打卡课时记录统计列表", "打卡课时记录统计表", resp);
     }
 }
