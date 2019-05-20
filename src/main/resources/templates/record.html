@@ -27,7 +27,6 @@
                             <div class="am-u-sm-12 am-u-md-3">
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <button @click="add" type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
                                         <button @click="batchDelete" type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 批量删除</button>
                                         <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-file-excel-o"></span> 导出</button>
                                     </div>
@@ -35,20 +34,17 @@
                             </div>
                             <div class="am-u-sm-12 am-u-md-3">
                                 <div class="am-form-group">
-                                    <select data-am-selected="{btnSize: 'sm'}">
-                                        <option value="option1">所有分类</option>
-                                        <option value="option2">瑜伽</option>
-                                        <option value="option3">跑步</option>
-                                        <option value="option3">拳击</option>
-                                        <option value="option3">游泳</option>
+                                    <select data-am-selected="{btnSize: 'sm'}" v-model="courseBh">
+                                        <option value=" " selected>所有分类</option>
+                                        <option :value="course.bh" v-for="course in courses">{{ course.name }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="am-u-sm-12 am-u-md-3">
                                 <div class="am-input-group am-input-group-sm">
-                                    <input type="text" class="am-form-field" placeholder="请输入会员姓名">
+                                    <input v-model="name" type="text" class="am-form-field" placeholder="请输入会员姓名">
                                     <span class="am-input-group-btn">
-                                        <button class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button"></button>
+                                        <button @click="loadData(1)" class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button"></button>
                                     </span>
                                 </div>
                             </div>
@@ -70,40 +66,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><input type="checkbox" value="111"></td>
-                                            <td><a>张三呀呀呀呀</a></td>
-                                            <td><a>张三123</a></td>
-                                            <td>瑜伽</td>
-                                            <td>￥<span>200</span></td>
-                                            <td>4</td>
-                                            <td>￥<span>800</span></td>
-                                            <td>2019年04月29日</td>
+                                        <tr v-for="record in records">
+                                            <td><input type="checkbox" :value="record.bh"></td>
+                                            <td><a v-text="record.ks.user.name" href="/user"></a></td>
+                                            <td><a v-text="record.coach.name" href="/coach"></a></td>
+                                            <td><a v-text="record.ks.course.name" href="/course"></a></td>
+                                            <td>￥<span v-text="record.ks.ksjg"></span></td>
+                                            <td v-text="record.skks"></td>
+                                            <td>￥<span v-text="record.kszj"></span></td>
+                                            <td v-text="record.cjsj"></td>
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
-                                                        <button @click="edit" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button @click="daka" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-warning"><span class="am-icon-link"></span> 打卡</button>
-                                                        <button @click="del(111)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" value="111"></td>
-                                            <td><a>李四呀呀呀呀</a></td>
-                                            <td><a>张三123</a></td>
-                                            <td>瑜伽</td>
-                                            <td>￥<span>200</span></td>
-                                            <td>2</td>
-                                            <td>￥<span>400</span></td>
-                                            <td>2019年05月03日</td>
-                                            <td>
-                                                <div class="am-btn-toolbar">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <button @click="edit" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button @click="daka" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-warning"><span class="am-icon-link"></span> 打卡</button>
-                                                        <button @click="del(111)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                                        <button @click="del(record.bh)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -111,13 +86,17 @@
                                     </tbody>
                                 </table>
                                 <div class="am-cf">
-                                    <span>共2条记录</span>
+                                    <span>共<span v-text="page.total" style="color:#be2924"></span>条记录</span>
+                                    <span>总金额为<span v-text="totalPrice" style="color:#be2924"></span>元</span>
                                     <div class="am-fr">
                                         <ul class="am-pagination tpl-pagination">
-                                            <li class="am-disabled"><a href="#">«</a></li>
-                                            <li class="am-active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">»</a></li>
+                                            <li :class="{'am-disabled': page.pageNum == 1}"><a @click="loadData(page.pageNum-1)">«</a></li>
+                                            <li><a v-text="page.pageNum-2" v-if="page.pageNum>2" @click="loadData(page.pageNum-2)"></a></li>
+                                            <li><a v-text="page.pageNum-1" v-if="page.pageNum>1" @click="loadData(page.pageNum-1)"></a></li>
+                                            <li class="am-active"><a v-text="page.pageNum"></a></li>
+                                            <li><a v-text="page.pageNum+1" v-if="page.pageNum<page.pages" @click="loadData(page.pageNum+1)"></a></li>
+                                            <li><a v-if="page.pageNum<page.pages-1" @click="loadData(page.pageNum+2)">...</a></li>
+                                            <li :class="{'am-disabled': page.pageNum == page.pages}"><a @click="loadData(page.pageNum+1)">»</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -135,7 +114,7 @@
 </body>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/js/vue.min.js"></script>
-<script src="/js/user.js"></script>
+<script src="/js/record.js"></script>
 <script src="/assets/js/amazeui.min.js"></script>
 <script src="/assets/js/app.js"></script>
 </html>

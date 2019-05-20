@@ -166,7 +166,7 @@ public class UserController {
             record.setBh(UUIDUtil.getUUid());
             record.setSkks(dkks);
             record.setKszj(String.valueOf(Integer.valueOf(ks.getKsjg())*Integer.valueOf(dkks)));
-            record.setUser(ks.getUser());
+            record.setKs(ks);
             record.setCoach(account.getCoach());
             recordMapper.InsertRecord(record);
             return new ApiResult(true,"打卡成功");

@@ -23,10 +23,10 @@ public class Record {
     private String kszj;
 
     /** 创建时间 **/
-    private Date cjsj;
+    private String cjsj;
 
-    /** 用户信息 **/
-    private User user;
+    /** 课时信息 **/
+    private Ks ks;
 
     /** 教练信息 **/
     private Coach coach;

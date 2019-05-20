@@ -1,5 +1,6 @@
 package site.layne666.gym.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import site.layne666.gym.pojo.Record;
 
@@ -13,10 +14,10 @@ import java.util.List;
 public interface RecordMapper {
 
     /**
-     * 查询所有会员信息
+     * 根据课时编号查询所有会员信息
      * @return
      */
-    List<Record> getRecords();
+    List<Record> getRecords(String ksBh);
 
     /**
      * 添加记录
@@ -24,6 +25,13 @@ public interface RecordMapper {
      * @return
      */
     Integer InsertRecord(Record record);
+
+    /**
+     * 根据编号删除课时记录
+     * @param bh
+     * @return
+     */
+    Integer deleteRecordByBh(String bh);
 
 
 }

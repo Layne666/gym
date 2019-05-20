@@ -27,7 +27,7 @@ public interface KsMapper {
 
     /**
      * 根据课程编号查询所有课时信息
-     * @param bh
+     * @param courseBh
      * @return
      */
     List<Ks> getKssByCourseBh(String courseBh);

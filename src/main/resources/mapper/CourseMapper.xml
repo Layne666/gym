@@ -33,7 +33,7 @@
         update t_course set c_name = #{name} where c_bh = #{bh}
     </update>
 
-    <select id="countCourse">
+    <select id="countCourse" resultType="int">
         select count(1) from t_course
     </select>
 </mapper>
