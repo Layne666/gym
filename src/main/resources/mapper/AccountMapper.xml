@@ -39,8 +39,10 @@
         where c_username = #{username} and c_password = #{password}
     </select>
 
-    <select id="countAccountByName" resultType="int">
-        select count(1) from t_account where c_username = #{username}
+    <select id="getAccountByName" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_account where c_username = #{username}
     </select>
 
     <insert id="insertAccount">

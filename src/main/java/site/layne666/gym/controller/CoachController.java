@@ -1,6 +1,5 @@
 package site.layne666.gym.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import site.layne666.gym.pojo.Account;
 import site.layne666.gym.pojo.ApiResult;
 import site.layne666.gym.pojo.Coach;
 import site.layne666.gym.pojo.CoachParam;
+import site.layne666.gym.service.AccountService;
 import site.layne666.gym.service.CoachService;
 import site.layne666.gym.utils.ExcelUtil;
 
@@ -39,6 +39,9 @@ public class CoachController {
     @Autowired
     private AccountMapper accountMapper;
 
+    @Autowired
+    private AccountService accountService;
+
     @GetMapping("")
     public  String coachGet(){
         return "coach";
@@ -51,8 +54,16 @@ public class CoachController {
             pageNum = 1;
         }
         try{
-            PageHelper.startPage(pageNum, 10);
-            PageInfo<Account> pageInfo = new PageInfo<>(coachService.getCoachAccountInfo(name));
+            List<Account> accounts = coachService.getCoachAccountInfo(name);
+            List<Account> list = accounts.subList(10 * (pageNum - 1), ((10 * pageNum) > accounts.size() ? accounts.size() : (10 * pageNum)));
+            PageInfo<Account> pageInfo = new PageInfo<>(list);
+            if(accounts.size()%10==0){
+                pageInfo.setPages(accounts.size()/10);
+            }else{
+                pageInfo.setPages((accounts.size()/10)+1);
+            }
+            pageInfo.setPageNum(pageNum-1);
+            pageInfo.setTotal(accounts.size());
             return new ApiResult(pageInfo);
         }catch (Exception e){
             log.error("查询用户课时失败",e);
@@ -98,8 +109,11 @@ public class CoachController {
     @ResponseBody
     public ApiResult editPost(@RequestBody Account account){
         try{
-            coachService.updateCoachAccount(account);
-            return new ApiResult(true,"修改教练账户信息成功");
+            boolean result = accountService.updateAccount(account);
+            if(result){
+                return new ApiResult(true,"修改教练账户信息成功");
+            }
+            return new ApiResult( false,"登录名已存在，请重新输入！");
         }catch (Exception e){
             log.error("修改教练账户信息失败",e);
             return new ApiResult( false,"修改教练账户信息失败");

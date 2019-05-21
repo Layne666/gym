@@ -11,6 +11,10 @@ const vm = new Vue({
     methods:{
         submitAdd:function(){
             let _this = this;
+            if(_this.name==''){
+                alert("分类名称不能为空！");
+                return;
+            }
             $.ajax({
                 type: "POST",
                 url: "/course/add",

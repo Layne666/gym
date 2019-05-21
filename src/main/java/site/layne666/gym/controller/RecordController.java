@@ -1,14 +1,15 @@
 package site.layne666.gym.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import site.layne666.gym.mapper.RecordMapper;
-import site.layne666.gym.pojo.*;
+import site.layne666.gym.pojo.ApiResult;
+import site.layne666.gym.pojo.Record;
+import site.layne666.gym.pojo.RecordParam;
 import site.layne666.gym.service.RecordService;
 import site.layne666.gym.utils.ExcelUtil;
 
@@ -45,8 +46,17 @@ public class RecordController {
             pageNum = 1;
         }
         try{
-            PageHelper.startPage(pageNum, 10);
-            PageInfo<Record> pageInfo = new PageInfo<>(recordService.getRecords(name));
+            //PageHelper.startPage(pageNum, 10);
+            List<Record> records = recordService.getRecords(name);
+            List<Record> list = records.subList(10 * (pageNum - 1), ((10 * pageNum) > records.size() ? records.size() : (10 * pageNum)));
+            PageInfo<Record> pageInfo = new PageInfo<>(list);
+            if(records.size()%10==0){
+                pageInfo.setPages(records.size()/10);
+            }else{
+                pageInfo.setPages((records.size()/10)+1);
+            }
+            pageInfo.setPageNum(pageNum-1);
+            pageInfo.setTotal(records.size());
             JSONObject result = new JSONObject();
             result.put("pageInfo",pageInfo);
             result.put("totalPrice",recordService.getTotalPrice(name));

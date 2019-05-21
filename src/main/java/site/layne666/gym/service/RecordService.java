@@ -33,8 +33,8 @@ public class RecordService {
      * @return
      */
     public List<Record> getRecords(String name){
-        List<Ks> kss = ksService.getKss(name);
         List<Record> records = new ArrayList<>();
+        List<Ks> kss = ksService.getKss(name);
         for (Ks ks : kss) {
             List<Record> list = recordMapper.getRecords(ks.getBh());
             records.addAll(list);
@@ -105,9 +105,9 @@ public class RecordService {
             }else{
                 for (JSONObject obj : result) {
                     if(record.getCoach().getBh().equals(obj.get("bh"))){
-                        int skks = Integer.valueOf((String) obj.get("skks")) + Integer.valueOf(record.getSkks());
+                        int skks = Integer.valueOf(String.valueOf(obj.get("skks"))) + Integer.valueOf(record.getSkks());
                         obj.put("skks",skks);
-                        double kszj = Double.valueOf((String) obj.get("kszj")) + Double.valueOf(record.getKszj());
+                        double kszj = Double.valueOf(String.valueOf(obj.get("kszj"))) + Double.valueOf(record.getKszj());
                         obj.put("kszj",kszj);
                         obj.put("srzb",df.format(kszj*100/zj) + "%");
                     }

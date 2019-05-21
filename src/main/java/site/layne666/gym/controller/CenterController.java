@@ -4,22 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import site.layne666.gym.mapper.AccountMapper;
 import site.layne666.gym.mapper.CoachMapper;
 import site.layne666.gym.pojo.Account;
+import site.layne666.gym.pojo.ApiResult;
 import site.layne666.gym.pojo.Coach;
-import site.layne666.gym.pojo.CoachParam;
 import site.layne666.gym.service.AccountService;
 import site.layne666.gym.utils.HttpRequestUtil;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 /**
  * 个人中心
@@ -46,19 +41,34 @@ public class CenterController {
         return "center-photo";
     }
 
-    @RequestMapping("/data")
-    public String data(){
+    @GetMapping("/data")
+    public String dataGet(){
         return "center-data";
     }
 
-    @PostMapping("/data/edit")
-    public void edit(CoachParam param, HttpSession session, HttpServletResponse resp) throws IOException {
+    @PostMapping("/data")
+    @ResponseBody
+    public ApiResult dataPost(HttpSession session){
         Account account = (Account)session.getAttribute("account");
-        accountService.updateAccount(account, param);
-        //获取更新后的账号信息
-        Account newAccount = accountMapper.getAccountByBh(account.getBh());
-        session.setAttribute("account",newAccount);
-        resp.sendRedirect("/center/data");
+        return new ApiResult(account);
+    }
+
+    @RequestMapping("/data/edit")
+    @ResponseBody
+    public ApiResult edit(@RequestBody Account account, HttpSession session) {
+        try{
+            boolean result = accountService.updateAccount(account);
+            if(result){
+                //获取更新后的账号信息
+                Account newAccount = accountMapper.getAccountByBh(account.getBh());
+                session.setAttribute("account",newAccount);
+                return new ApiResult(true,"修改个人信息成功！");
+            }
+            return new ApiResult(false,"登录名已存在，请重新输入！");
+        }catch (Exception e){
+            log.error("修改个人信息失败",e);
+            return new ApiResult(false,"修改个人信息失败");
+        }
     }
 
     @PostMapping(value = "/upload")

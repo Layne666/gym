@@ -42,12 +42,12 @@ public interface AccountMapper {
     List<Account> getAccountByNameAndPwd(@Param("username") String username, @Param("password") String password);
 
     /**
-     * 根据用户名查询账号信息个数
+     * 根据用户名查询账号信息
      *
      * @param username 用户名
-     * @return Account对象集合
+     * @return
      */
-    Integer countAccountByName(String username);
+    Account getAccountByName(String username);
 
     /**
      * 添加登录信息

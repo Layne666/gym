@@ -36,7 +36,7 @@
 
     <insert id="insertCoach">
         insert into t_coach(c_bh,c_name,c_sex,c_age,c_tel,c_img,n_zt)
-        values(#{bh},#{name},#{sex},#{age},#{tel},'https://i.loli.net/2019/05/19/5ce0ed96ac68618113.jpg',2)
+        values(#{bh},#{name},#{sex},#{age},#{tel},'https://i.loli.net/2019/05/22/5ce43019c4ba860403.png',2)
     </insert>
 
     <delete id="deleteCoachByBh">

@@ -27,9 +27,9 @@
                             <div class="am-u-sm-12 am-u-md-6">
                                 <div class="am-btn-toolbar">
                                     <div class="am-btn-group am-btn-group-xs">
-                                        <button @click="add" type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                        <button @click="add" type="button" class="am-btn am-btn-default am-btn-success" th:if="${session.account.getCoach().getZt()} eq 1"><span class="am-icon-plus"></span> 新增</button>
                                         <!--<button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>-->
-                                        <button @click="batchDelete" type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 批量删除</button>
+                                        <button @click="batchDelete" type="button" class="am-btn am-btn-default am-btn-danger" th:if="${session.account.getCoach().getZt()} eq 1"><span class="am-icon-trash-o"></span> 批量删除</button>
                                         <button @click="exportExcel" type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-file-excel-o"></span> 导出</button>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                 <table class="am-table am-table-striped am-table-hover table-main">
                                     <thead>
                                         <tr>
-                                            <th class="table-check"><input type="checkbox" class="tpl-table-fz-check" @click="checkAll" id="checkAll"></th>
+                                            <th class="table-check" th:if="${session.account.getCoach().getZt()} eq 1"><input type="checkbox" class="tpl-table-fz-check" @click="checkAll" id="checkAll"></th>
                                             <th class="table-title">姓名</th>
                                             <th class="table-title am-hide-sm-only">性别</th>
                                             <th class="table-title am-hide-sm-only">年龄</th>
@@ -62,7 +62,7 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="ks in kss">
-                                            <td><input type="checkbox" :value="ks.bh"></td>
+                                            <td th:if="${session.account.getCoach().getZt()} eq 1"><input type="checkbox" :value="ks.bh"></td>
                                             <td><a v-text="ks.user.name"></a></td>
                                             <td v-text="ks.user.sex"></td>
                                             <td v-text="ks.user.age"></td>
@@ -74,9 +74,9 @@
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
-                                                        <button @click="edit(ks.bh)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                        <button @click="edit(ks.bh)" th:if="${session.account.getCoach().getZt()} eq 1" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
                                                         <button @click="daka(ks.bh)" th:if="${session.account.getCoach().getZt()} eq 2" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-warning"><span class="am-icon-link"></span> 打卡</button>
-                                                        <button @click="del(ks.bh)" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                                        <button @click="del(ks.bh)" th:if="${session.account.getCoach().getZt()} eq 1" class="am-btn am-btn-default am-btn-xs am-hide-sm-only am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -87,13 +87,13 @@
                                     <span>共<span v-text="page.total" style="color:#be2924"></span>条记录</span>
                                     <div class="am-fr">
                                         <ul class="am-pagination tpl-pagination">
-                                            <li :class="{'am-disabled': page.pageNum == 1}"><a @click="loadData(page.pageNum-1)">«</a></li>
-                                            <li><a v-text="page.pageNum-2" v-if="page.pageNum>2" @click="loadData(page.pageNum-2)"></a></li>
+                                            <li :class="{'am-disabled': page.pageNum == 0}"><a @click="loadData(page.pageNum)">«</a></li>
                                             <li><a v-text="page.pageNum-1" v-if="page.pageNum>1" @click="loadData(page.pageNum-1)"></a></li>
-                                            <li class="am-active"><a v-text="page.pageNum"></a></li>
-                                            <li><a v-text="page.pageNum+1" v-if="page.pageNum<page.pages" @click="loadData(page.pageNum+1)"></a></li>
-                                            <li><a v-if="page.pageNum<page.pages-1" @click="loadData(page.pageNum+2)">...</a></li>
-                                            <li :class="{'am-disabled': page.pageNum == page.pages}"><a @click="loadData(page.pageNum+1)">»</a></li>
+                                            <li><a v-text="page.pageNum" v-if="page.pageNum>0" @click="loadData(page.pageNum)"></a></li>
+                                            <li class="am-active"><a v-text="page.pageNum+1"></a></li>
+                                            <li><a v-text="page.pageNum+2" v-if="page.pageNum<page.pages-1" @click="loadData(page.pageNum+2)"></a></li>
+                                            <li><a v-if="page.pageNum<page.pages-2" @click="loadData(page.pageNum+3)">...</a></li>
+                                            <li :class="{'am-disabled': page.pageNum == page.pages}"><a @click="loadData(page.pageNum+2)">»</a></li>
                                         </ul>
                                     </div>
                                 </div>

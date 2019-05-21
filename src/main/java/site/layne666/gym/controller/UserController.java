@@ -1,6 +1,5 @@
 package site.layne666.gym.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +54,17 @@ public class UserController {
             pageNum = 1;
         }
         try{
-            PageHelper.startPage(pageNum, 10);
-            PageInfo<Ks> pageInfo = new PageInfo<>(ksService.getKss(name));
+            //PageHelper.startPage(pageNum, 10);
+            List<Ks> kss = ksService.getKss(name);
+            List<Ks> list = kss.subList(10*(pageNum-1), ((10*pageNum)>kss.size()?kss.size():(10*pageNum)));
+            PageInfo<Ks> pageInfo = new PageInfo<>(list);
+            if(kss.size()%10==0){
+                pageInfo.setPages(kss.size()/10);
+            }else{
+                pageInfo.setPages((kss.size()/10)+1);
+            }
+            pageInfo.setPageNum(pageNum-1);
+            pageInfo.setTotal(kss.size());
             return new ApiResult(pageInfo);
         }catch (Exception e){
             log.error("查询用户课时失败",e);

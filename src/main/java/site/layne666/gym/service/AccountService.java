@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import site.layne666.gym.mapper.AccountMapper;
 import site.layne666.gym.mapper.CoachMapper;
 import site.layne666.gym.pojo.Account;
-import site.layne666.gym.pojo.Coach;
-import site.layne666.gym.pojo.CoachParam;
 import site.layne666.gym.utils.MD5Util;
 
 import java.util.List;
@@ -42,25 +40,25 @@ public class AccountService {
     }
 
     /**
-     * 更新账户信息
-     * @param account
+     * 更新账户信息并返回
      * @param param
      * @return
      */
-    public void updateAccount(Account account, CoachParam param) {
-        account.setUsername(param.getUsername());
-        //若修改了密码，需要对新密码进行MD5加密
-        if(!StringUtils.equals(account.getPassword(),param.getPassword())){
-            account.setPassword(MD5Util.MD5(param.getPassword()));
+    public boolean updateAccount(Account param) {
+        //确保登录名唯一
+        Account count = accountMapper.getAccountByName(param.getUsername());
+        if(count==null || StringUtils.equals(count.getBh(),param.getBh())){
+            Account oldAccount = accountMapper.getAccountByBh(param.getBh());
+            //若修改了密码，需要对新密码进行MD5加密
+            if(!StringUtils.equals(param.getPassword(),oldAccount.getPassword())){
+                param.setPassword(MD5Util.MD5(param.getPassword()));
+            }
+            coachMapper.updateCoach(param.getCoach());
+            accountMapper.updateAccount(param);
+            return true;
+        }else{
+            return false;
         }
-        Coach coach = account.getCoach();
-        coach.setName(param.getName());
-        coach.setSex(param.getSex());
-        coach.setAge(param.getAge());
-        coach.setTel(param.getTel());
-        coachMapper.updateCoach(coach);
-        accountMapper.updateAccount(account);
     }
-
 
 }

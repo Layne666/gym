@@ -14,6 +14,10 @@ const vm = new Vue({
     methods:{
         saveEdit:function(){
             let _this = this;
+            if(_this.name==''){
+                alert("分类名称不能为空！");
+                return;
+            }
             let bh = localStorage.getItem("courseBh");
             $.ajax({
                 type: "POST",

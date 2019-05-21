@@ -73,14 +73,4 @@ public class CoachService {
         accountMapper.deleteAccountByCoachBH(coachBh);
     }
 
-    /**
-     * 修改教练账户信息
-     * @param account
-     */
-    public void updateCoachAccount(Account account){
-        coachMapper.updateCoach(account.getCoach());
-        accountMapper.updateAccount(account);
-    }
-
-
 }
