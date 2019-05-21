@@ -30,7 +30,7 @@
                                 <i class="am-icon-users"></i>
                             </div>
                             <div class="details">
-                                <div class="number">1349</div>
+                                <div class="number" v-text="userNum"></div>
                                 <div class="desc">会员数</div>
                             </div>
                             <a class="more" href="/user"> 查看更多
@@ -44,7 +44,7 @@
                                 <i class="am-icon-user"></i>
                             </div>
                             <div class="details">
-                                <div class="number"> 6</div>
+                                <div class="number" v-text="coachNum"></div>
                                 <div class="desc"> 教练数</div>
                             </div>
                             <a class="more" href="/coach"> 查看更多
@@ -58,7 +58,7 @@
                                 <i class="am-icon-table"></i>
                             </div>
                             <div class="details">
-                                <div class="number"> 18</div>
+                                <div class="number" v-text="courseNum"></div>
                                 <div class="desc"> 课程分类</div>
                             </div>
                             <a class="more" href="/course"> 查看更多
@@ -72,8 +72,8 @@
                                 <i class="am-icon-money"></i>
                             </div>
                             <div class="details">
-                                <div class="number"> 845786</div>
-                                <div class="desc"> 收入额（元）</div>
+                                <div class="number" v-text="totalPrice"></div>
+                                <div class="desc"> 总收入额(元)</div>
                             </div>
                             <a class="more" href="/record"> 查看更多
                                 <i class="m-icon-swapright m-icon-white"></i>
@@ -83,119 +83,74 @@
                 </div>
 
                 <div class="row">
-                    <div class="am-u-md-6 am-u-sm-12 row-mb">
-                        <div class="tpl-portlet">
-                            <div class="tpl-portlet-title">
-                                <div class="tpl-caption font-green ">
-                                    <i class="am-icon-bar-chart"></i>
-                                    <span> 新会员数据统计</span>
-                                </div>
-                                <div class="actions">
-                                    <ul class="actions-btn">
-                                        <li class="red-on">本周</li>
-                                        <li class="green">上周</li>
-                                        <li class="blue">本月</li>
-                                    </ul>
-                                </div>
-                            </div>
+                    <!--<div class="am-u-md-6 am-u-sm-12 row-mb">-->
+                        <!--<div class="tpl-portlet">-->
+                            <!--<div class="tpl-portlet-title">-->
+                                <!--<div class="tpl-caption font-green ">-->
+                                    <!--<i class="am-icon-bar-chart"></i>-->
+                                    <!--<span> 新会员数据统计</span>-->
+                                <!--</div>-->
+                                <!--<div class="actions">-->
+                                    <!--<ul class="actions-btn">-->
+                                        <!--<li class="red-on">本周</li>-->
+                                        <!--<li class="green">上周</li>-->
+                                        <!--<li class="blue">本月</li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
-                            <!--此部分数据请在 js文件夹下中的 app.js 中的 “百度图表A” 处修改数据 插件使用的是 百度echarts-->
-                            <div class="tpl-echarts" id="tpl-echarts-A">
+                            <!--&lt;!&ndash;此部分数据请在 js文件夹下中的 app.js 中的 “百度图表A” 处修改数据 插件使用的是 百度echarts&ndash;&gt;-->
+                            <!--<div class="tpl-echarts" id="tpl-echarts-A">-->
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-u-md-6 am-u-sm-12 row-mb">
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="am-u-md-24 am-u-sm-12 row-mb">
                         <div class="tpl-portlet">
                             <div class="tpl-portlet-title">
                                 <div class="tpl-caption font-blue">
                                     <i class="am-icon-wpforms"></i>
-                                    <span> 教练上课情况 </span>
+                                    <span> 本月教练上课情况 </span>
                                 </div>
-                                <div class="actions">
-                                    <ul class="actions-btn">
-                                        <li class="red-on">今天</li>
-                                        <li class="green">昨天</li>
-                                        <li class="dark">本月</li>
-                                    </ul>
-                                </div>
+                                <!--<div class="actions">-->
+                                    <!--<ul class="actions-btn">-->
+                                        <!--<li class="red-on">今天</li>-->
+                                        <!--<li class="green">昨天</li>-->
+                                        <!--<li class="dark">本月</li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
                             </div>
                             <div class="tpl-scrollable">
                                 <div class="number-stats">
                                     <div class="stat-number am-fl am-u-md-6">
                                         <div class="title am-text-right"> 课时数</div>
-                                        <div class="number am-text-right am-text-warning"> 12</div>
+                                        <div class="number am-text-right am-text-warning" v-text="month.skks"> 0</div>
                                     </div>
                                     <div class="stat-number am-fr am-u-md-6">
                                         <div class="title"> 收入额</div>
-                                        <div class="number am-text-success"> 2460</div>
+                                        <div class="number am-text-success" v-text="month.kszj"> 0</div>
                                     </div>
                                 </div>
 
                                 <table class="am-table tpl-table">
                                     <thead>
-                                    <tr class="tpl-table-uppercase">
-                                        <th>教练</th>
-                                        <th>课时数</th>
-                                        <th>收入额</th>
-                                        <th>效率</th>
-                                    </tr>
+                                        <tr class="tpl-table-uppercase">
+                                            <th>教练</th>
+                                            <th>课时数</th>
+                                            <th>收入额</th>
+                                            <th>收入占比</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>
-                                            <img src="/assets/img/user01.png" alt="" class="user-pic">
-                                            <a class="user-name" href="javascript: void(0)">禁言小张</a>
-                                        </td>
-                                        <td>5</td>
-                                        <td>￥3213</td>
-                                        <td class="font-green bold">26%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="/assets/img/user02.png" alt="" class="user-pic">
-                                            <a class="user-name" href="javascript: void(0)">Alex.</a>
-                                        </td>
-                                        <td>17</td>
-                                        <td>￥2635</td>
-                                        <td class="font-green bold">32%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="/assets/img/user03.png" alt="" class="user-pic">
-                                            <a class="user-name" href="javascript: void(0)">Tinker404</a>
-                                        </td>
-                                        <td>8</td>
-                                        <td>￥1267</td>
-                                        <td class="font-green bold">51%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="/assets/img/user04.png" alt="" class="user-pic">
-                                            <a class="user-name" href="javascript: void(0)">Arron.y</a>
-                                        </td>
-                                        <td>2</td>
-                                        <td>￥657</td>
-                                        <td class="font-green bold">73%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="/assets/img/user05.png" alt="" class="user-pic">
-                                            <a class="user-name" href="javascript: void(0)">Yves</a>
-                                        </td>
-                                        <td>13</td>
-                                        <td>￥3907</td>
-                                        <td class="font-green bold">12%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="/assets/img/user06.png" alt="" class="user-pic">
-                                            <a class="user-name" href="javascript: void(0)">小黄鸡</a>
-                                        </td>
-                                        <td>3</td>
-                                        <td>￥900</td>
-                                        <td class="font-green bold">10%</td>
-                                    </tr>
+                                        <tr v-for="record in month.records">
+                                            <td>
+                                                <img :src="record.img" alt="" class="user-pic" style="width: 30px;height: 30px;">
+                                                <a class="user-name" href="/coach" v-text="record.name"></a>
+                                            </td>
+                                            <td v-text="record.skks"></td>
+                                            <td>￥<span v-text="record.kszj">0</span></td>
+                                            <td class="font-green bold" v-text="record.srzb">0%</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -209,6 +164,7 @@
 <script src="/assets/js/echarts.min.js"></script>
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/js/vue.min.js"></script>
+<script src="/js/index.js"></script>
 <script src="/assets/js/amazeui.min.js"></script>
 <script src="/assets/js/iscroll.js"></script>
 <script src="/assets/js/app.js"></script>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import site.layne666.gym.mapper.AccountMapper;
+import site.layne666.gym.mapper.CoachMapper;
 import site.layne666.gym.pojo.Account;
 import site.layne666.gym.pojo.ApiResult;
 import site.layne666.gym.pojo.Coach;
@@ -31,6 +32,9 @@ public class CoachController {
 
     @Autowired
     private CoachService coachService;
+
+    @Autowired
+    private CoachMapper coachMapper;
 
     @Autowired
     private AccountMapper accountMapper;
@@ -148,5 +152,17 @@ public class CoachController {
             list.add(param);
         }
         ExcelUtil.exportExcel(list, colTitles, properties, "教练账户信息统计列表", "教练账户信息统计表", resp);
+    }
+
+    @RequestMapping("/count")
+    @ResponseBody
+    public ApiResult count(){
+        try{
+            Integer result = coachMapper.countCoachs();
+            return new ApiResult(result);
+        }catch (Exception e){
+            log.error("查询教练数量失败",e);
+            return new ApiResult(false,"查询教练数量失败");
+        }
     }
 }

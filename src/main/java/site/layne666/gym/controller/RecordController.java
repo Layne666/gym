@@ -103,4 +103,28 @@ public class RecordController {
         }
         ExcelUtil.exportExcel(list, colTitles, properties, "打卡课时记录统计列表", "打卡课时记录统计表", resp);
     }
+
+    @RequestMapping("/count")
+    @ResponseBody
+    public ApiResult count(){
+        try{
+            Integer result = recordService.getTotalPrice(null);
+            return new ApiResult(result);
+        }catch (Exception e){
+            log.error("查询总收入额失败",e);
+            return new ApiResult(false,"查询总收入额失败");
+        }
+    }
+
+    @RequestMapping("/month")
+    @ResponseBody
+    public ApiResult month(){
+        try{
+            JSONObject result = recordService.getCurMonthRecords();
+            return new ApiResult(result);
+        }catch (Exception e){
+            log.error("查询当月课时记录失败",e);
+            return new ApiResult(false,"查询当月课时记录失败");
+        }
+    }
 }

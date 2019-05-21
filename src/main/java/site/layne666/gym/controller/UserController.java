@@ -197,4 +197,16 @@ public class UserController {
         }
         ExcelUtil.exportExcel(list, colTitles, properties, "会员课时统计列表", "会员课时统计表", resp);
     }
+
+    @RequestMapping("/count")
+    @ResponseBody
+    public ApiResult count(){
+        try{
+            Integer result = userMapper.countUsers();
+            return new ApiResult(result);
+        }catch (Exception e){
+            log.error("查询会员数量失败",e);
+            return new ApiResult(false,"查询会员数量失败");
+        }
+    }
 }

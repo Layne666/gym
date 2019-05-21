@@ -65,4 +65,8 @@
         where c_bh = #{bh}
     </update>
 
+    <select id="countCoachs" resultType="int">
+        select count(1) from t_coach where n_zt = '2'
+    </select>
+
 </mapper>

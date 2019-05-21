@@ -48,4 +48,10 @@ public interface UserMapper {
      */
     Integer deleteUserByBh(String bh);
 
+    /**
+     * 查询会员个数
+     * @return
+     */
+    Integer countUsers();
+
 }

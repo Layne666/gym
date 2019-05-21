@@ -33,5 +33,11 @@ public interface RecordMapper {
      */
     Integer deleteRecordByBh(String bh);
 
+    /**
+     * 获取本月的课时记录
+     * @return
+     */
+    List<Record> getCurMonthRecords();
+
 
 }

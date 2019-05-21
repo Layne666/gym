@@ -22,14 +22,19 @@
         from t_record where c_ks_bh = #{ksBh}
     </select>
 
-
     <insert id="InsertRecord">
         insert into t_record(c_bh,c_ks_bh,c_coach_bh,c_skks,c_kszj,dt_cjsj)
         values(#{bh},#{ks.bh},#{coach.bh},#{skks},#{kszj},now())
     </insert>
 
-
     <delete id="deleteRecordByBh">
         delete from t_record where c_bh = #{bh}
     </delete>
+
+    <select id="getCurMonthRecords" resultMap="baseMap">
+        select
+        <include refid="baseColumn"/>
+        from t_record
+        where date_format(dt_cjsj,'%Y%m') = date_format(curdate(),'%Y%m')
+    </select>
 </mapper>

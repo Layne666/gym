@@ -146,4 +146,16 @@ public class CourseController {
             return new ApiResult(true,"分类批量删除成功");
         }
     }
+
+    @RequestMapping("/count")
+    @ResponseBody
+    public ApiResult count(){
+        try{
+            Integer result = courseMapper.countCourse();
+            return new ApiResult(result);
+        }catch (Exception e){
+            log.error("查询课程分类数量失败",e);
+            return new ApiResult(false,"查询课程分类数量失败");
+        }
+    }
 }

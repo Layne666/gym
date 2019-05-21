@@ -49,4 +49,10 @@ public interface CoachMapper {
      */
     Integer updateCoach(Coach Coach);
 
+    /**
+     * 查询教练数量（非管理员）
+     * @return
+     */
+    Integer countCoachs();
+
 }

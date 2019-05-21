@@ -60,4 +60,8 @@
         delete from t_user where c_bh = #{bh}
     </delete>
 
+    <select id="countUsers" resultType="int">
+        select count(1) from t_user
+    </select>
+
 </mapper>
