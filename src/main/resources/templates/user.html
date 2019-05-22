@@ -93,7 +93,7 @@
                                             <li class="am-active"><a v-text="page.pageNum+1"></a></li>
                                             <li><a v-text="page.pageNum+2" v-if="page.pageNum<page.pages-1" @click="loadData(page.pageNum+2)"></a></li>
                                             <li><a v-if="page.pageNum<page.pages-2" @click="loadData(page.pageNum+3)">...</a></li>
-                                            <li :class="{'am-disabled': page.pageNum == page.pages}"><a @click="loadData(page.pageNum+2)">»</a></li>
+                                            <li :class="{'am-disabled': page.pageNum == page.pages-1}"><a @click="loadData(page.pageNum+2)">»</a></li>
                                         </ul>
                                     </div>
                                 </div>
