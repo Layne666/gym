@@ -15,9 +15,11 @@ public interface RecordMapper {
 
     /**
      * 根据课时编号查询所有会员信息
+     * @param ksBh
+     * @param coachBh
      * @return
      */
-    List<Record> getRecords(String ksBh);
+    List<Record> getRecords(@Param("ksBh") String ksBh, @Param("coachBh") String coachBh);
 
     /**
      * 添加记录

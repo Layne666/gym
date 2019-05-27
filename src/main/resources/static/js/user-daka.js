@@ -37,6 +37,10 @@ const vm = new Vue({
     methods:{
         submitDaka:function(){
             let _this = this;
+            if(parseInt(_this.param.sysks)==0){
+                alert("过剩余课时为0，无法打卡了");
+                return;
+            }
             if(parseInt(_this.dkks)>parseInt(_this.param.sysks)){
                 alert("打卡课时超过剩余课时..请重新填写");
                 return;

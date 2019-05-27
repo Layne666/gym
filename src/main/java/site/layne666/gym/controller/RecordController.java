@@ -14,6 +14,7 @@ import site.layne666.gym.service.RecordService;
 import site.layne666.gym.utils.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,13 +42,13 @@ public class RecordController {
 
     @PostMapping("")
     @ResponseBody
-    public ApiResult recordPost(Integer pageNum,String name){
+    public ApiResult recordPost(Integer pageNum, String name, HttpSession session){
         if(pageNum==null){
             pageNum = 1;
         }
         try{
             //PageHelper.startPage(pageNum, 10);
-            List<Record> records = recordService.getRecords(name);
+            List<Record> records = recordService.getRecords(name,session);
             List<Record> list = records.subList(10 * (pageNum - 1), ((10 * pageNum) > records.size() ? records.size() : (10 * pageNum)));
             PageInfo<Record> pageInfo = new PageInfo<>(list);
             if(records.size()%10==0){
@@ -95,11 +96,11 @@ public class RecordController {
     }
 
     @RequestMapping("/export")
-    public void export(String name, HttpServletResponse resp) {
+    public void export(String name, HttpServletResponse resp,HttpSession session) {
         String[] colTitles = {"会员姓名", "教练姓名", "课程分类", "课时价格（元）", "上课课时", "课时总价（元）", "创建时间"};
         String[] properties = {"userName", "coachName", "courseName", "ksjg", "skks", "kszj", "cjsj"};
         List<Object> list = new ArrayList<>();
-        List<Record> records = recordService.getRecords(name);
+        List<Record> records = recordService.getRecords(name,session);
         for (Record record : records) {
             RecordParam param = new RecordParam();
             param.setUserName(record.getKs().getUser().getName());

@@ -4,10 +4,14 @@ package site.layne666.gym.service;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import site.layne666.gym.common.Consts;
 import site.layne666.gym.mapper.RecordMapper;
+import site.layne666.gym.pojo.Account;
+import site.layne666.gym.pojo.Course;
 import site.layne666.gym.pojo.Ks;
 import site.layne666.gym.pojo.Record;
 
+import javax.servlet.http.HttpSession;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,11 +36,22 @@ public class RecordService {
      * @param name
      * @return
      */
-    public List<Record> getRecords(String name){
+    public List<Record> getRecords(String name, HttpSession session){
         List<Record> records = new ArrayList<>();
         List<Ks> kss = ksService.getKss(name);
+        Account account = (Account) session.getAttribute("account");
         for (Ks ks : kss) {
-            List<Record> list = recordMapper.getRecords(ks.getBh());
+            List<Record> list ;
+            if(Consts.YGLQX.equals(String.valueOf(account.getCoach().getZt()))){
+                list = recordMapper.getRecords(ks.getBh(),null);
+            }else {
+                list = recordMapper.getRecords(ks.getBh(), account.getCoach().getBh());
+            }
+            for (Record record : list) {
+                if(record.getKs().getCourse()==null){
+                    record.getKs().setCourse(new Course("",""));
+                }
+            }
             records.addAll(list);
         }
         return records;
@@ -51,7 +66,7 @@ public class RecordService {
         List<Ks> kss = ksService.getKss(name);
         Integer totalPrice = 0;
         for (Ks ks : kss) {
-            List<Record> list = recordMapper.getRecords(ks.getBh());
+            List<Record> list = recordMapper.getRecords(ks.getBh(),null);
             for (Record record : list) {
                 totalPrice += Integer.valueOf(record.getKszj());
             }

@@ -19,7 +19,15 @@
     <select id="getRecords" resultMap="baseMap">
         select
         <include refid="baseColumn"/>
-        from t_record where c_ks_bh = #{ksBh}
+        from t_record
+        <where>
+            <if test="ksBh!=null and ksBh!=''">
+              and c_ks_bh = #{ksBh}
+            </if>
+            <if test="coachBh!=null and coachBh!=''">
+                and c_coach_bh = #{coachBh}
+            </if>
+        </where>
     </select>
 
     <insert id="InsertRecord">

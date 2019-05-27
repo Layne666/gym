@@ -47,8 +47,16 @@ const vm = new Vue({
                 alert("剩余课时数不能为空！");
                 return;
             }
+            if(_this.param.sysks<0){
+                alert("剩余课时数不能为负数！");
+                return;
+            }
             if(_this.param.ksjg==''){
                 alert("课时价格不能为空！");
+                return;
+            }
+            if(_this.param.ksjg<0){
+                alert("课时价格不能为负数！");
                 return;
             }
             $.ajax({
