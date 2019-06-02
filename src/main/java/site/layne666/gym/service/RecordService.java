@@ -59,15 +59,13 @@ public class RecordService {
 
     /**
      * 查询总金额
-     * @param name
+     * @param records
      * @return
      */
-    public Integer getTotalPrice(String name){
-        List<Ks> kss = ksService.getKss(name);
+    public Integer getTotalPrice(List<Record> records){
         Integer totalPrice = 0;
-        for (Ks ks : kss) {
-            List<Record> list = recordMapper.getRecords(ks.getBh(),null);
-            for (Record record : list) {
+        if(records.size()>0){
+            for (Record record : records) {
                 totalPrice += Integer.valueOf(record.getKszj());
             }
         }

@@ -60,7 +60,7 @@ public class RecordController {
             pageInfo.setTotal(records.size());
             JSONObject result = new JSONObject();
             result.put("pageInfo",pageInfo);
-            result.put("totalPrice",recordService.getTotalPrice(name));
+            result.put("totalPrice",recordService.getTotalPrice(records));
             return new ApiResult(result);
         }catch (Exception e){
             log.error("查询课时记录失败",e);
@@ -119,7 +119,7 @@ public class RecordController {
     @ResponseBody
     public ApiResult count(){
         try{
-            Integer result = recordService.getTotalPrice(null);
+            Integer result = recordService.getTotalPrice(recordMapper.getRecords(null,null));
             return new ApiResult(result);
         }catch (Exception e){
             log.error("查询总收入额失败",e);
